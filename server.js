@@ -8,6 +8,7 @@ const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const allowedUsers = ["Ravish", "Dipu"]; // Replace these with your usernames
+const onlineUsers = {}; //set teh track of online users
 
 app.prepare().then(() => {
   const server = createServer((req, res) => {
@@ -20,11 +21,19 @@ app.prepare().then(() => {
   io.on("connection", (socket) => {
     console.log("a user connected");
 
+    // Add user to online users
+    socket.on("set username", (username) => {
+      if (allowedUsers.includes(username)) {
+        onlineUsers[username] = "online";
+        io.emit("user status", onlineUsers);
+      }
+    });
+
     socket.on("chat message", (msg) => {
-      console.log("msg:", msg);
+      // console.log("msg:", msg);
       // Only allow messages from allowed users
       if (allowedUsers.includes(msg.username)) {
-        console.log(allowedUsers)
+        // console.log(allowedUsers);
         io.emit("chat message", msg);
       }
     });
@@ -35,6 +44,14 @@ app.prepare().then(() => {
 
     socket.on("disconnect", () => {
       console.log("user disconnected");
+
+      // Update the user status to offline and broadcast the change
+      for (const [username, status] of Object.entries(onlineUsers)) {
+        if (status === "online") {
+          onlineUsers[username] = "offline"; // Set user status to offline
+          io.emit("user status", onlineUsers); // Broadcast updated user statuses
+        }
+      }
     });
   });
 

@@ -18,7 +18,8 @@ export default function Chat() {
   const [messages, setMessages] = useState([]);
   const [username, setUsername] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
-  const inputRef = useRef(null); // Initialize useRef
+  const [userStatus, setUserStatus] = useState({});
+  const inputRef = useRef(null);
 
   useEffect(() => {
     // Initialize Socket.IO client
@@ -29,12 +30,16 @@ export default function Chat() {
       setMessages((prevMessages) => [...prevMessages, msg]);
     });
 
-    // Listen for clear chat event
-    socket.on("clear chat", () => {
-      setMessages([]); // Clear messages in the state
+    // Listen for user status updates
+    socket.on("user status", (status) => {
+      setUserStatus(status);
     });
 
-    // Clean up on unmount
+    // Listen for clear chat event
+    socket.on("clear chat", () => {
+      setMessages([]);
+    });
+
     return () => {
       socket.disconnect();
     };
@@ -43,10 +48,13 @@ export default function Chat() {
   const handleRavishClick = () => {
     setUsername("Ravish");
     setLoggedIn(true);
+    socket.emit("set username", "Ravish");
   };
+
   const handleDipuClick = () => {
     setUsername("Dipu");
     setLoggedIn(true);
+    socket.emit("set username", "Dipu");
   };
 
   const sendMessage = (e) => {
@@ -60,16 +68,14 @@ export default function Chat() {
       setMessage("");
 
       if (inputRef.current) {
-        inputRef.current.style.height = "auto"; // Reset to auto to shrink back
-        inputRef.current.focus(); // Keep the input focused
+        inputRef.current.style.height = "auto";
+        inputRef.current.focus();
       }
     }
   };
 
-  // Handle input height adjustment
   const handleInputChange = (e) => {
     setMessage(e.target.value);
-    // Auto-resize the textarea
     const textarea = inputRef.current;
     if (textarea) {
       textarea.style.height = "auto";
@@ -77,10 +83,13 @@ export default function Chat() {
     }
   };
 
-  // Handle Clear Chat
   const clearChat = () => {
-    socket.emit("clear chat"); // Emit clear chat event to the server
-    setMessages([]); // Clear messages in the current user's state
+    socket.emit("clear chat");
+    setMessages([]);
+  };
+
+  const refreshPage = () => {
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -117,18 +126,38 @@ export default function Chat() {
     );
   }
 
+  // Determine which user’s status to show
+  const otherUser = username === "Ravish" ? "Dipu" : "Ravish";
+  const otherUserStatus = userStatus[otherUser];
+
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
       <div className="flex-1 overflow-hidden relative">
-        <div className="fixed top-0 left-0 right-0 bg-gray-800 text-center py-4 border-b border-gray-700">
-          <div className="flex items-center justify-around">
-            <h1 className="text-xl font-semibold">Sweet Chats</h1>
+        <div className="fixed z-20 top-0 left-0 right-0 bg-gray-800 text-center py-4 border-b border-gray-700">
+          <div className="flex items-center justify-between px-4">
+            <h1 className="text-xl font-serif">Status</h1>
             <button
               onClick={clearChat}
-              className="bg-red-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-red-500 transition-colors"
+              className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-full font-bold shadow-lg hover:from-red-500 hover:to-red-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
             >
-              Clear Chat
+              Clear
             </button>
+            <button
+              onClick={refreshPage}
+              className="bg-gradient-to-r from-green-600 to-green-700 text-white px-4 py-2 rounded-full font-bold shadow-lg hover:from-green-500 hover:to-green-600 transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
+            >
+              Refresh
+            </button>
+          </div>
+          <div className="flex items-center space-x-2 justify-center mt-2">
+            <div className="flex items-center space-x-2">
+              <span
+                className={`w-3 h-3 rounded-full ${
+                  otherUserStatus === "online" ? "bg-green-500" : "bg-gray-500"
+                }`}
+              ></span>
+              <span className="text-sm text-gray-400">{otherUser}</span>
+            </div>
           </div>
         </div>
         <div className="pt-24 pb-24 overflow-y-auto px-4">
@@ -141,7 +170,7 @@ export default function Chat() {
                 } items-start space-x-2`}
               >
                 <div
-                  className={`flex-shrink-0 ${
+                  className={`relative flex-shrink-0 ${
                     msg.username === username ? "ml-2" : "mr-2"
                   }`}
                 >
@@ -152,6 +181,13 @@ export default function Chat() {
                     height={40}
                     className="rounded-full border border-gray-600"
                   />
+                  <span
+                    className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${
+                      userStatus[msg.username] === "online"
+                        ? "bg-green-500"
+                        : "bg-gray-500"
+                    }`}
+                  ></span>
                 </div>
                 <div
                   className={`flex-1 p-3 rounded-lg ${
@@ -176,15 +212,15 @@ export default function Chat() {
         >
           <div className="relative flex-1 h-auto flex items-center justify-center">
             <textarea
-              ref={inputRef} // Assign ref to textarea
+              ref={inputRef}
               value={message}
               onChange={handleInputChange}
               placeholder="Message..."
               rows={1}
-              className="w-full h-full bg-gray-800 text-gray-200 resize-none placeholder:text-gray-500 placeholder:font-light placeholder:text-sm focus:outline-none" // Added padding-right to prevent overlap
+              className="w-full h-full bg-gray-800 text-gray-200 resize-none placeholder:text-gray-500 placeholder:font-light placeholder:text-sm focus:outline-none"
               style={{
-                padding: "0.5rem 2rem", // Adjust padding for better alignment
-                boxSizing: "border-box", // Ensure padding doesn't affect width
+                padding: "0.5rem 2rem",
+                boxSizing: "border-box",
               }}
             />
             <button
