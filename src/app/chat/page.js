@@ -29,17 +29,24 @@ export default function Chat() {
       setMessages((prevMessages) => [...prevMessages, msg]);
     });
 
+    // Listen for clear chat event
+    socket.on("clear chat", () => {
+      setMessages([]); // Clear messages in the state
+    });
+
     // Clean up on unmount
     return () => {
       socket.disconnect();
     };
   }, []);
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    if (username.trim()) {
-      setLoggedIn(true);
-    }
+  const handleRavishClick = () => {
+    setUsername("Ravish");
+    setLoggedIn(true);
+  };
+  const handleDipuClick = () => {
+    setUsername("Dipu");
+    setLoggedIn(true);
   };
 
   const sendMessage = (e) => {
@@ -70,6 +77,12 @@ export default function Chat() {
     }
   };
 
+  // Handle Clear Chat
+  const clearChat = () => {
+    socket.emit("clear chat"); // Emit clear chat event to the server
+    setMessages([]); // Clear messages in the current user's state
+  };
+
   useEffect(() => {
     const chatEndRef = document.getElementById("chat-end");
     if (chatEndRef) {
@@ -77,39 +90,48 @@ export default function Chat() {
     }
   }, [messages]);
 
-  // if (!loggedIn) {
-  //   return (
-  //     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-200 p-4">
-  //       <form
-  //         onSubmit={handleLogin}
-  //         className="w-full max-w-sm bg-gray-800 rounded-lg shadow-lg p-4"
-  //       >
-  //         <h1 className="text-xl font-semibold text-center mb-4">Enter Chat</h1>
-  //         <input
-  //           type="text"
-  //           value={username}
-  //           onChange={(e) => setUsername(e.target.value)}
-  //           placeholder="Enter your name"
-  //           className="w-full p-2 mb-4 rounded bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:border-blue-500"
-  //         />
-  //         <button
-  //           type="submit"
-  //           className="w-full p-2 rounded bg-blue-600 hover:bg-blue-500"
-  //         >
-  //           Start Chatting
-  //         </button>
-  //       </form>
-  //     </div>
-  //   );
-  // }
+  if (!loggedIn) {
+    return (
+      <div className="h-screen flex flex-col gap-10 pt-20 items-center p-4 bg-gradient-to-r from-gray-800 to-gray-900">
+        <div className="flex items-center justify-center">
+          <Image
+            src={"/ravish.png"}
+            alt={"Ravish"}
+            width={200}
+            height={200}
+            className="rounded-full border-4 border-gray-600 shadow-lg cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-125 active:scale-95"
+            onClick={handleRavishClick}
+          />
+        </div>
+        <div className="flex items-center justify-center">
+          <Image
+            src={"/dipu.png"}
+            alt={"Dipu"}
+            width={200}
+            height={200}
+            className="rounded-full border-4 border-gray-600 shadow-lg cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-125 active:scale-95"
+            onClick={handleDipuClick}
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
       <div className="flex-1 overflow-hidden relative">
-        <div className="fixed top-0 left-0 right-0 bg-gray-800 text-center py-2 border-b border-gray-700">
-          <h1 className="text-xl font-semibold">Sweet Chats</h1>
+        <div className="fixed top-0 left-0 right-0 bg-gray-800 text-center py-4 border-b border-gray-700">
+          <div className="flex items-center justify-around">
+            <h1 className="text-xl font-semibold">Sweet Chats</h1>
+            <button
+              onClick={clearChat}
+              className="bg-red-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-red-500 transition-colors"
+            >
+              Clear Chat
+            </button>
+          </div>
         </div>
-        <div className="pt-16 pb-24 overflow-y-auto px-4">
+        <div className="pt-24 pb-24 overflow-y-auto px-4">
           <ul className="space-y-4">
             {messages.map((msg, index) => (
               <li
@@ -150,7 +172,7 @@ export default function Chat() {
         </div>
         <form
           onSubmit={sendMessage}
-          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full mb-4 min-h-14 px-4 overflow-hidden"
+          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
           <div className="relative flex-1 h-auto flex items-center justify-center">
             <textarea
@@ -168,7 +190,7 @@ export default function Chat() {
             <button
               type="submit"
               disabled={!message.trim()}
-              className="text-blue-600 disabled:text-blue-400 h-10 px-4 flex items-center justify-center rounded-lg"
+              className="text-blue-500 disabled:text-blue-700 h-10 px-4 flex items-center justify-center rounded-lg font-bold"
             >
               Send
             </button>

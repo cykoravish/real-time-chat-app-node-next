@@ -29,6 +29,10 @@ app.prepare().then(() => {
       }
     });
 
+    socket.on("clear chat", () => {
+      io.emit("clear chat"); // Broadcast clear chat event to all clients
+    });
+
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
