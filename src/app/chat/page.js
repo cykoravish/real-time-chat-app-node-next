@@ -77,31 +77,31 @@ export default function Chat() {
     }
   }, [messages]);
 
-  if (!loggedIn) {
-    return (
-      <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-200 p-4">
-        <form
-          onSubmit={handleLogin}
-          className="w-full max-w-sm bg-gray-800 rounded-lg shadow-lg p-4"
-        >
-          <h1 className="text-xl font-semibold text-center mb-4">Enter Chat</h1>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter your name"
-            className="w-full p-2 mb-4 rounded bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:border-blue-500"
-          />
-          <button
-            type="submit"
-            className="w-full p-2 rounded bg-blue-600 hover:bg-blue-500"
-          >
-            Start Chatting
-          </button>
-        </form>
-      </div>
-    );
-  }
+  // if (!loggedIn) {
+  //   return (
+  //     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-gray-200 p-4">
+  //       <form
+  //         onSubmit={handleLogin}
+  //         className="w-full max-w-sm bg-gray-800 rounded-lg shadow-lg p-4"
+  //       >
+  //         <h1 className="text-xl font-semibold text-center mb-4">Enter Chat</h1>
+  //         <input
+  //           type="text"
+  //           value={username}
+  //           onChange={(e) => setUsername(e.target.value)}
+  //           placeholder="Enter your name"
+  //           className="w-full p-2 mb-4 rounded bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:border-blue-500"
+  //         />
+  //         <button
+  //           type="submit"
+  //           className="w-full p-2 rounded bg-blue-600 hover:bg-blue-500"
+  //         >
+  //           Start Chatting
+  //         </button>
+  //       </form>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
@@ -150,21 +150,25 @@ export default function Chat() {
         </div>
         <form
           onSubmit={sendMessage}
-          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 p-4 flex items-center"
+          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full mb-4 min-h-14 px-4 overflow-hidden"
         >
-          <div className="relative flex-1">
+          <div className="relative flex-1 h-auto flex items-center justify-center">
             <textarea
               ref={inputRef} // Assign ref to textarea
               value={message}
               onChange={handleInputChange}
-              placeholder="Type your message here..."
+              placeholder="Message..."
               rows={1}
-              className="w-full p-2 pr-14 rounded-lg bg-gray-700 text-gray-200 border border-gray-600 focus:outline-none focus:border-blue-500 resize-none overflow-hidden"
+              className="w-full h-full bg-gray-800 text-gray-200 resize-none placeholder:text-gray-500 placeholder:font-light placeholder:text-sm focus:outline-none" // Added padding-right to prevent overlap
+              style={{
+                padding: "0.5rem 2rem", // Adjust padding for better alignment
+                boxSizing: "border-box", // Ensure padding doesn't affect width
+              }}
             />
             <button
               type="submit"
               disabled={!message.trim()}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-blue-600 disabled:text-blue-400"
+              className="text-blue-600 disabled:text-blue-400 h-10 px-4 flex items-center justify-center rounded-lg"
             >
               Send
             </button>
