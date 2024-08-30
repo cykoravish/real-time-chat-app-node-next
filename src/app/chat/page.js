@@ -45,16 +45,10 @@ export default function Chat() {
     };
   }, []);
 
-  const handleRavishClick = () => {
-    setUsername("Ravish");
+  const handleUserClick = (user) => {
+    setUsername(user);
     setLoggedIn(true);
-    socket.emit("set username", "Ravish");
-  };
-
-  const handleDipuClick = () => {
-    setUsername("Dipu");
-    setLoggedIn(true);
-    socket.emit("set username", "Dipu");
+    socket.emit("set username", user);
   };
 
   const sendMessage = (e) => {
@@ -102,26 +96,18 @@ export default function Chat() {
   if (!loggedIn) {
     return (
       <div className="h-screen flex flex-col gap-10 pt-20 items-center p-4 bg-gradient-to-r from-gray-800 to-gray-900">
-        <div className="flex items-center justify-center">
-          <Image
-            src={"/ravish.png"}
-            alt={"Ravish"}
-            width={200}
-            height={200}
-            className="rounded-full border-4 border-gray-600 shadow-lg cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-125 active:scale-95"
-            onClick={handleRavishClick}
-          />
-        </div>
-        <div className="flex items-center justify-center">
-          <Image
-            src={"/dipu.png"}
-            alt={"Dipu"}
-            width={200}
-            height={200}
-            className="rounded-full border-4 border-gray-600 shadow-lg cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-125 active:scale-95"
-            onClick={handleDipuClick}
-          />
-        </div>
+        {Object.keys(avatars).map((user) => (
+          <div key={user} className="flex items-center justify-center">
+            <Image
+              src={avatars[user]}
+              alt={user}
+              width={200}
+              height={200}
+              className="rounded-full border-4 border-gray-600 shadow-lg cursor-pointer transition-transform duration-200 ease-in-out transform hover:scale-125 active:scale-95"
+              onClick={() => handleUserClick(user)}
+            />
+          </div>
+        ))}
       </div>
     );
   }
