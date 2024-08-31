@@ -23,10 +23,13 @@ export default function Chat() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-
-    const serverURL = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL;
+    const serverURL =
+      process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "https://ravish.fun";
     // Initialize Socket.IO client
-    socket = io(serverURL);
+    socket = io(serverURL, {
+      transports: ["websocket"], // Use WebSocket for better performance
+      withCredentials: true, // Ensure credentials are sent
+    });
 
     // Listen for incoming messages
     socket.on("chat message", (msg) => {
@@ -127,7 +130,7 @@ export default function Chat() {
       window.removeEventListener("popstate", handlePopState);
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
-  }, []); //////////////////////////////////////////////////
+  }, []);
 
   if (!loggedIn) {
     const handleUserClickWithEffect = (user) => {
@@ -184,7 +187,6 @@ export default function Chat() {
       </div>
     );
   }
-  /////////////////////////////////////////////////////
 
   // Determine which user’s status to show
   const otherUser = username === "Ravish" ? "Dipu" : "Ravish";
@@ -257,46 +259,35 @@ export default function Chat() {
                   className={`flex-1 p-3 rounded-lg ${
                     msg.username === username
                       ? "bg-blue-600 text-white"
-                      : "bg-gray-700 text-gray-200"
-                  } max-w-full overflow-hidden`}
+                      : "bg-gray-800 text-gray-200"
+                  }`}
                 >
-                  <p className="text-sm text-sky-500 font-bold">
-                    {msg.username}
-                  </p>
-                  <p className="text-base break-words whitespace-pre-wrap">
-                    {msg.message}
-                  </p>
+                  <p className="font-semibold">{msg.username}</p>
+                  <p>{msg.message}</p>
                 </div>
               </li>
             ))}
-            <li id="chat-end"></li>
+            <div id="chat-end"></div>
           </ul>
         </div>
         <form
           onSubmit={sendMessage}
-          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
+          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 py-4 px-4"
         >
-          <div className="relative flex-1 h-auto flex items-center justify-center">
-            <textarea
-              ref={inputRef}
-              value={message}
-              onChange={handleInputChange}
-              placeholder="Message..."
-              rows={1}
-              className="w-full h-full bg-gray-800 text-gray-200 resize-none placeholder:text-gray-500 placeholder:font-light placeholder:text-sm focus:outline-none"
-              style={{
-                padding: "0.5rem 2rem",
-                boxSizing: "border-box",
-              }}
-            />
-            <button
-              type="submit"
-              disabled={!message.trim()}
-              className="text-blue-500 disabled:text-blue-700 h-10 px-4 flex items-center justify-center rounded-lg font-bold"
-            >
-              Send
-            </button>
-          </div>
+          <textarea
+            ref={inputRef}
+            value={message}
+            onChange={handleInputChange}
+            rows="1"
+            placeholder="Type a message..."
+            className="w-full p-2 rounded-lg bg-gray-700 border border-gray-600 text-gray-200 resize-none focus:outline-none focus:border-blue-500"
+          />
+          <button
+            type="submit"
+            className="w-full mt-2 py-2 bg-blue-600 text-white rounded-lg font-semibold shadow-lg hover:bg-blue-500 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 active:bg-blue-700"
+          >
+            Send
+          </button>
         </form>
       </div>
     </div>
