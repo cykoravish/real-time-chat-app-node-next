@@ -23,7 +23,13 @@ app.prepare().then(() => {
     handle(req, res, parsedUrl);
   });
 
-  const io = socketIo(server);
+  const io = socketIo(server, {
+    cors: {
+      origin: "https://ravish.fun", // Your frontend domain
+      methods: ["GET", "POST"],
+      allowedHeaders: ["my-custom-header"], // Optional: Add any custom headers you need
+    },
+  });
 
   io.on("connection", (socket) => {
     console.log("a user connected");
