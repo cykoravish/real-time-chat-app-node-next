@@ -3,11 +3,17 @@ const { parse } = require("url");
 const next = require("next");
 const socketIo = require("socket.io");
 
+// Load environment variables from .env file
+require("dotenv").config();
+
 const dev = process.env.NODE_ENV !== "production";
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
-const allowedUsers = ["Ravish", "Dipu"]; // Replace these with your usernames
+// Get allowed users from environment variable
+const allowedUsers = process.env.ALLOWED_USERS
+  ? process.env.ALLOWED_USERS.split(",")
+  : [];
 const onlineUsers = {}; // Track online users
 const userSockets = {}; // Track user sockets for disconnection
 

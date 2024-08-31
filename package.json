@@ -5,9 +5,11 @@
   "scripts": {
     "dev": "nodemon server.js",
     "build": "next build",
-    "start": "next start"
+    "start": "node server.js",
+    "start:prod": "npm run build && NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "dotenv": "^16.4.5",
     "next": "14.2.7",
     "react": "^18",
     "react-dom": "^18",

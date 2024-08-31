@@ -23,8 +23,10 @@ export default function Chat() {
   const inputRef = useRef(null);
 
   useEffect(() => {
+
+    const serverURL = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL;
     // Initialize Socket.IO client
-    socket = io();
+    socket = io(serverURL);
 
     // Listen for incoming messages
     socket.on("chat message", (msg) => {
@@ -258,7 +260,9 @@ export default function Chat() {
                       : "bg-gray-700 text-gray-200"
                   } max-w-full overflow-hidden`}
                 >
-                  <p className="text-sm font-semibold">{msg.username}</p>
+                  <p className="text-sm text-sky-500 font-bold">
+                    {msg.username}
+                  </p>
                   <p className="text-base break-words whitespace-pre-wrap">
                     {msg.message}
                   </p>
