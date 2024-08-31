@@ -19,7 +19,7 @@ export default function Chat() {
   const [username, setUsername] = useState("");
   const [loggedIn, setLoggedIn] = useState(false);
   const [userStatus, setUserStatus] = useState({});
-  const [clickedUser, setClickedUser] = useState(null); 
+  const [clickedUser, setClickedUser] = useState(null);
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -94,7 +94,38 @@ export default function Chat() {
     }
   }, [messages]);
 
-  //////////////////////////////////////////////////
+  useEffect(() => {
+    let isBackNavigation = false;
+
+    // Handle the back button press (popstate event)
+    const handlePopState = () => {
+      isBackNavigation = true;
+      window.history.pushState(null, null, window.location.href); // Prevent back navigation
+      alert("Are you sure you want to exit the website?");
+    };
+
+    // Prevent the unload of the page only if it's a back navigation
+    const handleBeforeUnload = (e) => {
+      if (isBackNavigation) {
+        e.preventDefault();
+        e.returnValue = ""; // Required for the confirmation dialog to show
+      }
+    };
+
+    // Listen for the popstate event (back/forward navigation)
+    window.addEventListener("popstate", handlePopState);
+
+    // Listen for the beforeunload event
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    // Push state to prevent back navigation
+    window.history.pushState(null, null, window.location.href);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []); //////////////////////////////////////////////////
 
   if (!loggedIn) {
     const handleUserClickWithEffect = (user) => {
