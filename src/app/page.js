@@ -260,10 +260,14 @@ export default function Chat() {
                     msg.username === username
                       ? "bg-blue-600 text-white"
                       : "bg-gray-800 text-gray-200"
-                  }`}
+                  } max-w-full overflow-hidden`}
                 >
-                  <p className="font-semibold">{msg.username}</p>
-                  <p>{msg.message}</p>
+                  <p className="text-sm font-semibold text-cyan-300">
+                    {msg.username}
+                  </p>
+                  <p className="text-base break-words whitespace-pre-wrap">
+                    {msg.message}
+                  </p>
                 </div>
               </li>
             ))}
