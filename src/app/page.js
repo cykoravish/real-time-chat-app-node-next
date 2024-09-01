@@ -6,6 +6,7 @@ import Image from "next/image";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { IoSend } from "react-icons/io5";
 import { IoMdCloseCircle } from "react-icons/io";
+import Link from "next/link";
 
 // Example avatars for users
 const avatars = {
@@ -110,10 +111,6 @@ export default function Chat() {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
-
-  // const handleImageChange = (e) => {
-  //   setImage(e.target.files[0]);
-  // };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -234,6 +231,14 @@ export default function Chat() {
               </h1>
             </div>
           ))}
+          <Link href={"/baby"}>
+            <button
+              type="button"
+              class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 focus:outline-none focus:border-blue-600 active:border-blue-600 focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none"
+            >
+              Sweet Notes
+            </button>
+          </Link>
         </div>
       </div>
     );
