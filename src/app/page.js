@@ -327,7 +327,7 @@ export default function Chat() {
                       alt={msg.fileName}
                       width={500}
                       height={500}
-                      className="max-w-xs rounded-lg shadow-md"
+                      className="max-w-xs w-48 h-48 rounded-lg shadow-md"
                     />
                   )}
                 </div>

@@ -29,6 +29,7 @@ app.prepare().then(() => {
       methods: ["GET", "POST"],
       allowedHeaders: ["my-custom-header"], // Optional: Add any custom headers you need
     },
+    mmaxHttpBufferSize: 10e6,
   });
 
   io.on("connection", (socket) => {
