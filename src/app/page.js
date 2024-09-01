@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import io from "socket.io-client";
 import Image from "next/image";
+import { HiOutlinePhotograph } from "react-icons/hi";
+import { IoSend } from "react-icons/io5";
 
 // Example avatars for users
 const avatars = {
@@ -20,6 +22,7 @@ export default function Chat() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userStatus, setUserStatus] = useState({});
   const [clickedUser, setClickedUser] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   // const [image, setImage] = useState(null); // New state for image
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -94,6 +97,7 @@ export default function Chat() {
         inputRef.current.focus();
       }
     }
+    setSelectedImage(null);
   };
 
   const handleInputChange = (e) => {
@@ -115,6 +119,7 @@ export default function Chat() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
+        setSelectedImage(reader.result);
         const fileData = {
           username,
           file: reader.result,
@@ -126,7 +131,7 @@ export default function Chat() {
       };
       reader.readAsDataURL(file); // Read file as data URL
     }
-    handleInputChange();
+    // handleInputChange();
   };
 
   const clearChat = () => {
@@ -335,13 +340,17 @@ export default function Chat() {
           className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
           <div className="relative flex-1 h-auto flex items-center justify-center">
-            <input
-              type="file"
-              accept="image/*"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              className="mr-2"
-            />
+            <label htmlFor="file-upload">
+              <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="hidden"
+              />
+              <HiOutlinePhotograph className="w-6 h-6 text-gray-400 cursor-pointer hover:text-gray-300 " />
+            </label>
             <textarea
               ref={inputRef}
               value={message}
@@ -361,8 +370,19 @@ export default function Chat() {
               }
               className="text-blue-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold"
             >
-              Send
+              <IoSend className="w-8 h-8" />
             </button>
+            {selectedImage && (
+              <div className="ml-2">
+                <Image
+                  width={200}
+                  height={200}
+                  src={selectedImage}
+                  alt="Selected Preview"
+                  className="w-16 h-16 object-cover rounded"
+                />
+              </div>
+            )}
           </div>
         </form>
       </div>
