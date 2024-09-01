@@ -5,6 +5,7 @@ import io from "socket.io-client";
 import Image from "next/image";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { IoSend } from "react-icons/io5";
+import { IoMdCloseCircle } from "react-icons/io";
 
 // Example avatars for users
 const avatars = {
@@ -335,12 +336,34 @@ export default function Chat() {
             <div id="chat-end"></div>
           </ul>
         </div>
+
+        {/* Image Preview */}
+        {selectedImage && (
+          <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2">
+            <Image
+              width={200}
+              height={200}
+              src={selectedImage}
+              alt="Selected Preview"
+              className="w-48 h-48 object-cover rounded-full shadow-lg transform transition-transform duration-300 ease-in-out hover:scale-105"
+            />
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 rounded-full text-white bg-red-500 p-1 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+              aria-label="Remove Image"
+            >
+              <IoMdCloseCircle className="w-10 h-10" />
+            </button>
+          </div>
+        )}
+
         <form
           onSubmit={sendMessage}
           className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
-          <div className="relative flex-1 h-auto flex items-center justify-center">
-            <label htmlFor="file-upload">
+          <div className="relative flex-1 h-auto flex items-center justify-between space-x-2">
+            {/* Image Upload Icon */}
+            <label htmlFor="file-upload" className="cursor-pointer">
               <input
                 id="file-upload"
                 type="file"
@@ -349,8 +372,10 @@ export default function Chat() {
                 onChange={handleFileChange}
                 className="hidden"
               />
-              <HiOutlinePhotograph className="w-6 h-6 text-gray-400 cursor-pointer hover:text-gray-300 " />
+              <HiOutlinePhotograph className="w-6 h-6 text-gray-400 hover:text-gray-300 transition-colors duration-200 ease-in-out" />
             </label>
+
+            {/* Message Input */}
             <textarea
               ref={inputRef}
               value={message}
@@ -363,26 +388,15 @@ export default function Chat() {
                 boxSizing: "border-box",
               }}
             />
+
+            {/* Send Button */}
             <button
               type="submit"
-              disabled={
-                !(message?.trim() || fileInputRef.current?.files.length !== 0)
-              }
-              className="text-blue-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold"
+              disabled={!(message?.trim() || selectedImage)}
+              className="text-blue-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
             >
-              <IoSend className="w-8 h-8" />
+              <IoSend className="w-6 h-6" />
             </button>
-            {selectedImage && (
-              <div className="ml-2">
-                <Image
-                  width={200}
-                  height={200}
-                  src={selectedImage}
-                  alt="Selected Preview"
-                  className="w-16 h-16 object-cover rounded"
-                />
-              </div>
-            )}
           </div>
         </form>
       </div>
