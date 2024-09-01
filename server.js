@@ -44,12 +44,22 @@ app.prepare().then(() => {
     });
 
     socket.on("chat message", (msg) => {
+      // console.log("masg:", msg);
       if (allowedUsers.includes(msg.username)) {
         io.emit("chat message", msg);
       }
     });
 
+    // Handle file sharing
+    socket.on("chat file", (fileData) => {
+      // console.log("filedata:", fileData);
+      if (allowedUsers.includes(fileData.username)) {
+        io.emit("chat file", fileData); // Broadcast file data to all clients
+      }
+    });
+
     socket.on("clear chat", () => {
+      // console.log("cklearinhg chat");
       io.emit("clear chat"); // Broadcast clear chat event to all clients
     });
 
@@ -67,7 +77,7 @@ app.prepare().then(() => {
       io.emit("user status", onlineUsers);
     });
   });
-
+  console.log("server testing...");
   const PORT = process.env.PORT || 3000;
   server.listen(PORT, (err) => {
     if (err) throw err;

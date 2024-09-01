@@ -20,7 +20,9 @@ export default function Chat() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userStatus, setUserStatus] = useState({});
   const [clickedUser, setClickedUser] = useState(null);
+  // const [image, setImage] = useState(null); // New state for image
   const inputRef = useRef(null);
+  const fileInputRef = useRef(null);
 
   useEffect(() => {
     const serverURL =
@@ -46,6 +48,11 @@ export default function Chat() {
       setMessages([]);
     });
 
+    // Listen for incoming file
+    socket.on("chat file", (file) => {
+      setMessages((prevMessages) => [...prevMessages, file]);
+    });
+
     return () => {
       socket.disconnect();
     };
@@ -57,16 +64,31 @@ export default function Chat() {
     socket.emit("set username", user);
   };
 
-  const sendMessage = (e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
-    if (message.trim()) {
-      const chatMessage = {
+    if (message?.trim() || fileInputRef.current.files.length > 0) {
+      let chatMessage = {
         username,
         message,
       };
-      socket.emit("chat message", chatMessage);
-      setMessage("");
 
+      if (fileInputRef.current.files.length > 0) {
+        const file = fileInputRef.current.files[0];
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          chatMessage = {
+            ...chatMessage,
+            file: reader.result,
+            fileName: file.name,
+          };
+          socket.emit("chat file", chatMessage);
+          fileInputRef.current.value = ""; // Clear file input
+        };
+        reader.readAsDataURL(file); // Read file as data URL
+      } else {
+        socket.emit("chat message", chatMessage);
+      }
+      setMessage("");
       if (inputRef.current) {
         inputRef.current.style.height = "auto";
         inputRef.current.focus();
@@ -75,12 +97,36 @@ export default function Chat() {
   };
 
   const handleInputChange = (e) => {
-    setMessage(e.target.value);
+    setMessage(e?.target.value);
+
     const textarea = inputRef.current;
     if (textarea) {
       textarea.style.height = "auto";
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
+  };
+
+  // const handleImageChange = (e) => {
+  //   setImage(e.target.files[0]);
+  // };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const fileData = {
+          username,
+          file: reader.result,
+          fileName: file.name,
+          fileType: file.type,
+        };
+        // console.log("fileData", fileData)
+        // socket.emit("chat file", fileData);
+      };
+      reader.readAsDataURL(file); // Read file as data URL
+    }
+    handleInputChange();
   };
 
   const clearChat = () => {
@@ -101,7 +147,6 @@ export default function Chat() {
 
   useEffect(() => {
     let isBackNavigation = false;
-
     // Handle the back button press (popstate event)
     const handlePopState = () => {
       isBackNavigation = true;
@@ -265,9 +310,20 @@ export default function Chat() {
                   <p className="text-sm font-semibold text-cyan-300">
                     {msg.username}
                   </p>
-                  <p className="text-base break-words whitespace-pre-wrap">
-                    {msg.message}
-                  </p>
+                  {msg.message && (
+                    <p className="text-base break-words whitespace-pre-wrap">
+                      {msg.message}
+                    </p>
+                  )}
+                  {msg.file && (
+                    <Image
+                      src={msg.file}
+                      alt={msg.fileName}
+                      width={500}
+                      height={500}
+                      className="max-w-xs rounded-lg shadow-md"
+                    />
+                  )}
                 </div>
               </li>
             ))}
@@ -279,6 +335,13 @@ export default function Chat() {
           className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
           <div className="relative flex-1 h-auto flex items-center justify-center">
+            <input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              className="mr-2"
+            />
             <textarea
               ref={inputRef}
               value={message}
@@ -293,8 +356,10 @@ export default function Chat() {
             />
             <button
               type="submit"
-              disabled={!message.trim()}
-              className="text-blue-500 disabled:text-blue-700 h-10 px-4 flex items-center justify-center rounded-lg font-bold"
+              disabled={
+                !(message?.trim() || fileInputRef.current?.files.length !== 0)
+              }
+              className="text-blue-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold"
             >
               Send
             </button>
