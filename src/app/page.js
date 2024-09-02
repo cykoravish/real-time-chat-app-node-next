@@ -276,15 +276,15 @@ export default function Chat() {
             <div className="flex space-x-3">
               <button
                 onClick={clearChat}
-                className="bg-red-600 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg hover:bg-red-500 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 active:bg-red-700"
+                className="bg-pink-400 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50 active:bg-pink-700"
               >
                 Clear
               </button>
               <button
                 onClick={refreshPage}
-                className="bg-green-600 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg hover:bg-green-500 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 active:bg-green-700"
+                className="bg-pink-400 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50 active:bg-pink-700"
               >
-                ReStart
+                Home
               </button>
             </div>
           </div>
@@ -361,7 +361,7 @@ export default function Chat() {
             />
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 rounded-full text-white bg-red-500 p-1 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-300"
+              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 rounded-full text-white bg-pink-500 p-1 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
               aria-label="Remove Image"
             >
               <IoMdCloseCircle className="w-10 h-10" />
@@ -405,7 +405,7 @@ export default function Chat() {
             <button
               type="submit"
               disabled={!(message?.trim() || selectedImage)}
-              className="text-blue-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
+              className="text-pink-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
             >
               <IoSend className="w-6 h-6" />
             </button>
