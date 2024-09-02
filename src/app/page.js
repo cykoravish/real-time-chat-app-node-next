@@ -28,7 +28,6 @@ export default function Chat() {
   // const [image, setImage] = useState(null); // New state for image
   const inputRef = useRef(null);
   const fileInputRef = useRef(null);
-
   useEffect(() => {
     const serverURL =
       process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "https://ravish.fun";
@@ -190,37 +189,34 @@ export default function Chat() {
     };
 
     return (
-      <div className="h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-r from-purple-900 via-gray-900 to-indigo-900">
-        <div
-          className="flex flex-col md:flex-row items-center justify-around w-full max-w-xl 
-               space-y-20 md:space-y-0 md:space-x-10"
-        >
+      <div className="h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-r from-pink-200 via-rose-300 to-pink-400">
+        <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl space-y-10 md:space-y-0 md:space-x-16">
           {Object.keys(avatars).map((user) => (
             <div
               key={user}
-              className={`relative flex flex-col items-center group transform transition-all duration-500 ${
-                clickedUser === user ? "scale-105" : ""
+              className={`relative flex flex-col items-center group transform transition-all duration-700 ${
+                clickedUser === user ? "scale-110" : ""
               }`}
               onClick={() => handleUserClickWithEffect(user)}
             >
               <div className="relative">
                 <div
-                  className={`absolute inset-0 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full opacity-75 blur-lg transition-all duration-500 ${
+                  className={`absolute inset-0 bg-gradient-to-tr from-pink-500 to-red-500 rounded-full opacity-50 blur-lg transition-all duration-700 ${
                     clickedUser === user ? "blur-sm" : ""
                   }`}
                 ></div>
                 <Image
                   src={avatars[user]}
                   alt={user}
-                  width={180}
-                  height={180}
-                  className={`rounded-full border-4 border-transparent shadow-lg cursor-pointer transition-transform duration-500 ease-in-out ${
-                    clickedUser === user ? "scale-110" : ""
+                  width={200}
+                  height={200}
+                  className={`rounded-full border-4 border-white shadow-2xl cursor-pointer transition-transform duration-700 ease-in-out ${
+                    clickedUser === user ? "scale-125 rotate-6" : ""
                   }`}
                 />
               </div>
               <h1
-                className="absolute text-lg font-normal font-mono tracking-wide text-white"
+                className="absolute text-xl font-bold tracking-wide text-white"
                 style={{
                   left: "50%",
                   top: "80%",
@@ -231,14 +227,25 @@ export default function Chat() {
               </h1>
             </div>
           ))}
+        </div>
+
+        {/* Heart Icon with Button */}
+        <div className="mt-12">
           <Link href={"/baby"}>
             <button
               type="button"
-              class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 focus:outline-none focus:border-blue-600 active:border-blue-600 focus:text-blue-600 disabled:opacity-50 disabled:pointer-events-none"
+              className="relative py-3 px-6 inline-flex items-center text-lg font-semibold text-white rounded-full shadow-lg bg-gradient-to-r from-rose-400 to-red-500 hover:from-pink-500 hover:to-red-600 focus:outline-none transition-all duration-700 transform hover:scale-110"
             >
-              Sweet Notes
+              <span className="mr-2">💖</span> Sweet Notes
             </button>
           </Link>
+        </div>
+
+        {/* Floating Hearts Animation */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <div className="floating-heart absolute bottom-0 left-1/4 w-24 h-24 bg-rose-400 rounded-full opacity-50 blur-2xl"></div>
+          <div className="floating-heart absolute top-10 right-1/3 w-32 h-32 bg-pink-300 rounded-full opacity-75 blur-3xl"></div>
+          <div className="floating-heart absolute top-1/4 left-1/3 w-16 h-16 bg-red-400 rounded-full opacity-50 blur-xl"></div>
         </div>
       </div>
     );
