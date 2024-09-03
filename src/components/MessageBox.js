@@ -1,6 +1,6 @@
 import { useAuth } from "@/AuthContext";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { FiTrash2, FiCheckCircle } from "react-icons/fi";
 
 const MessageBox = ({
@@ -11,34 +11,41 @@ const MessageBox = ({
   onMarkAsDelete,
   onMarkAsSeen,
   id,
+  isSeen,
+  isDeleted,
 }) => {
-  // const [isExpanded, setIsExpanded] = useState(false);
-  const [isSeen, setIsSeen] = useState(false);
-  const [isDeleted, setIsDeleted] = useState(false);
+  const [localIsSeen, setLocalIsSeen] = useState(isSeen);
+  const [localIsDeleted, setLocalIsDeleted] = useState(isDeleted);
 
-  const updatedData = async () => {
-    const data = await axios.post(
-      "/api/update",
-      { isSeen, isDeleted, id },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log("updatedData", data.data.data);
+  // Updated data function
+  const updatedData = async (seen, deleted) => {
+    try {
+      await axios.post(
+        "/api/update",
+        { isSeen: seen, isDeleted: deleted, id },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    } catch (error) {
+      console.error("Failed to update message:", error);
+    }
   };
 
-
-  const handleMarkAsSeen = async () => {
-    setIsSeen(true);
-    onMarkAsSeen();
-    await updatedData();
+  const handleMarkAsSeen = async (e) => {
+    e.stopPropagation();
+    const updatedSeen = true;
+    setLocalIsSeen(updatedSeen);
+    onMarkAsSeen(id);
+    await updatedData(updatedSeen, localIsDeleted);
   };
-  const handleMarkAsDelete = async () => {
-    setIsDeleted(true);
-    onMarkAsDelete();
-    await updatedData();
+
+  const handleMarkAsDelete = async (e) => {
+    e.stopPropagation();
+    const updatedDeleted = true;
+    setLocalIsDeleted(updatedDeleted);
+    onMarkAsDelete(id);
+    await updatedData(localIsSeen, updatedDeleted);
   };
 
   return (
@@ -55,21 +62,15 @@ const MessageBox = ({
         <div className="flex space-x-2">
           <button
             className="text-red-500 hover:text-red-700 transition duration-200"
-            onClick={(e) => {
-              e.stopPropagation();
-              handleMarkAsDelete();
-            }}
+            onClick={handleMarkAsDelete}
           >
             <FiTrash2 size={20} />
           </button>
           <button
             className={`${
-              isSeen ? "text-green-500" : "text-gray-500"
+              localIsSeen ? "text-green-500" : "text-gray-500"
             } hover:text-green-700 transition duration-200`}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleMarkAsSeen();
-            }}
+            onClick={handleMarkAsSeen}
           >
             <FiCheckCircle size={20} />
           </button>
@@ -90,50 +91,56 @@ const MessageBox = ({
 
 const Messages = () => {
   const [messagesData, setMessagesData] = useState([]);
-  const username = localStorage.getItem("username");
   const { reload } = useAuth();
-  console.log(username);
   const [expandedMessageId, setExpandedMessageId] = useState(null);
+
+  const fetchMessages = useCallback(async () => {
+    try {
+      const { data } = await axios.get("/api/getdata");
+      setMessagesData(data.data.reverse().slice(0, 10));
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages, reload]);
 
   const handleToggleExpansion = (id) => {
     setExpandedMessageId((prevId) => (prevId === id ? null : id));
   };
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await axios.get("/api/getdata");
-        setMessagesData(data.data.data.reverse().slice(0, 10));
-      } catch (error) {
-        console.log("error in get req:", error);
-      }
-    };
-    getData();
-  }, [reload]);
-
   const handleMarkAsDelete = (id) => {
-    console.log(`Delete message with ID: ${id}`);
-    // Add your delete logic here
+    // Optionally remove from UI or re-fetch messages
+    setMessagesData((prev) => prev.filter((msg) => msg._id !== id));
   };
+
   const handleMarkAsSeen = (id) => {
-    console.log(`Mark message with ID: ${id} as seen`);
-    // Add your mark as seen logic here
+    // Optionally update in UI or re-fetch messages
+    setMessagesData((prev) =>
+      prev.map((msg) => (msg._id === id ? { ...msg, isSeen: true } : msg))
+    );
   };
 
   return (
     <div className="p-6">
-      {messagesData.map((message) => (
-        <MessageBox
-          key={message._id}
-          title={message.name}
-          message={message.message}
-          isExpanded={expandedMessageId === message._id}
-          onToggle={() => handleToggleExpansion(message._id)}
-          onMarkAsDelete={() => handleMarkAsDelete(message._id)}
-          onMarkAsSeen={() => handleMarkAsSeen(message._id)}
-          id={message._id}
-        />
-      ))}
+      {messagesData
+        .filter((msg) => !msg.isDeleted)
+        .map((message) => (
+          <MessageBox
+            key={message._id}
+            title={message.name}
+            message={message.message}
+            isExpanded={expandedMessageId === message._id}
+            onToggle={() => handleToggleExpansion(message._id)}
+            onMarkAsDelete={handleMarkAsDelete}
+            onMarkAsSeen={handleMarkAsSeen}
+            id={message._id}
+            isSeen={message.isSeen}
+            isDeleted={message.isDeleted}
+          />
+        ))}
     </div>
   );
 };
