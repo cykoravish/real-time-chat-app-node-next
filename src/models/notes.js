@@ -9,6 +9,14 @@ const notesSchema = new mongoose.Schema({
     type: String,
     required: [true, "Baby kuch message to likho"],
   },
+  isSeen: {
+    type: Boolean,
+    default: false,
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
   createdAt: {
     type: Date,
     default: Date.now, // Automatically sets the current date and time

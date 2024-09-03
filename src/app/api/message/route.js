@@ -19,6 +19,7 @@ export async function POST(req) {
       message,
     });
     await newMessage.save();
+    console.log("newuser:n,", newMessage);
     return NextResponse.json(
       { success: true, msg: "message created successful" },
       { status: 201 }
