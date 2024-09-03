@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { name, message } = body;
-    console.log("data:", name, message);
+    // console.log("data:", name, message);
     if (!name || !message) {
       return NextResponse.json(
         { success: false, msg: "all fields are required" },
@@ -19,7 +19,7 @@ export async function POST(req) {
       message,
     });
     await newMessage.save();
-    console.log("newuser:n,", newMessage);
+    // console.log("newuser:n,", newMessage);
     return NextResponse.json(
       { success: true, msg: "message created successful" },
       { status: 201 }

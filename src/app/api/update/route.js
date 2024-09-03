@@ -7,7 +7,7 @@ export async function POST(req) {
   try {
     const body = await req.json();
     const { isSeen, isDeleted, id } = body;
-    console.log(isSeen, isDeleted, id);
+    // console.log(isSeen, isDeleted, id);
     // Find the note by ID and update it
     const updatedNote = await User.findByIdAndUpdate(
       id,

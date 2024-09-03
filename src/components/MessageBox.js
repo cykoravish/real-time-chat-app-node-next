@@ -60,12 +60,15 @@ const MessageBox = ({
           {title}
         </h2>
         <div className="flex space-x-2">
-          <button
-            className="text-red-500 hover:text-red-700 transition duration-200"
-            onClick={handleMarkAsDelete}
-          >
-            <FiTrash2 size={20} />
-          </button>
+          {isExpanded && (
+            <button
+              className="text-red-500 hover:text-red-700 transition duration-200"
+              onClick={handleMarkAsDelete}
+            >
+              <FiTrash2 size={20} />
+            </button>
+          )}
+
           <button
             className={`${
               localIsSeen ? "text-green-500" : "text-gray-500"
@@ -97,7 +100,7 @@ const Messages = () => {
   const fetchMessages = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/getdata");
-      setMessagesData(data.data.reverse().slice(0, 10));
+      setMessagesData(data.data.reverse().slice(0, 5));
     } catch (error) {
       console.error("Error fetching messages:", error);
     }

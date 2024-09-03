@@ -16,7 +16,8 @@ export default function Baby() {
   const [isOpen, setIsOpen] = useState(false);
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
-  const [messageData, setMessageData] = useState({ name: "", message: "" });
+  // const [messageData, setMessageData] = useState({ name: "", message: "" });
+  const [messageData, setMessageData] = useState("");
   const [loading, setLoading] = useState(false);
 
   const AUTO_LOGOUT_TIME = 4 * 60 * 1000;
@@ -38,7 +39,8 @@ export default function Baby() {
       localStorage.setItem("lastLoginTime", currentTime.toString());
       setIsAuthenticated(true);
       showSuccessToast("Loggen In✔️");
-      if (validPasswords.includes("red")) {
+
+      if (password === "red") {
         localStorage.setItem("username", "Ravish");
       } else {
         localStorage.setItem("username", "Deepu");
@@ -50,31 +52,26 @@ export default function Baby() {
     }
   };
 
-  const handleMessageChange = (e) => {
-    setMessageData({
-      ...messageData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
   const handleMessageSubmit = async (e) => {
+    const username = localStorage.getItem("username");
     e.preventDefault();
-    if (!messageData.name.trim()) {
-      setMessageData({ ...messageData, name: "Baby" });
-    }
-    if (!messageData.message.trim()) {
+    // if (!messageData.name.trim()) {
+    //   setMessageData({ ...messageData, name: username });
+    // }
+    if (!messageData) {
       showErrorToast("Baby note to likho 😘");
       return;
     }
     setLoading(true);
+    const info = { name: username, message: messageData };
     try {
-      const resp = await axios.post("/api/message", messageData, {
+      const resp = await axios.post("/api/message", info, {
         headers: {
           "Content-Type": "application/json",
         },
       });
       setReload(!reload);
-      setMessageData({ name: "", message: "" }); // Clear form after submission
+      setMessageData(""); // Clear form after submission
       handleClose();
       setLoading(false);
     } catch (error) {
@@ -204,7 +201,7 @@ export default function Baby() {
                     Sweet Notes
                   </h1>
                   <form onSubmit={handleMessageSubmit} className="space-y-4">
-                    <div>
+                    {/* <div>
                       <label htmlFor="name" className="block text-gray-700">
                         Name
                       </label>
@@ -216,16 +213,16 @@ export default function Baby() {
                         onChange={handleMessageChange}
                         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
                       />
-                    </div>
+                    </div> */}
                     <div>
-                      <label htmlFor="message" className="block text-gray-700">
-                        Note
-                      </label>
+                      {/* <label htmlFor="message" className="block text-gray-700">
+                        Add Note
+                      </label> */}
                       <textarea
                         name="message"
                         placeholder="Leave a note here for your baby"
-                        value={messageData.message}
-                        onChange={handleMessageChange}
+                        value={messageData}
+                        onChange={(e) => setMessageData(e.target.value)}
                         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
                         rows="4"
                       ></textarea>
@@ -264,7 +261,7 @@ export default function Baby() {
                           Loading...
                         </span>
                       ) : (
-                        "Submit"
+                        "Left a note"
                       )}
                     </button>
                   </form>
