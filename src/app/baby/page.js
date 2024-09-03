@@ -4,15 +4,26 @@ import axios from "axios";
 import { showErrorToast } from "@/utils/toastUtils";
 import { showSuccessToast } from "@/utils/toastUtils";
 import Link from "next/link";
-// import "dotenv/config";
+import { useAuth } from "@/AuthContext";
+import PasswordEnter from "@/components/password";
+import { FiPlus } from "react-icons/fi";
+import { IoMdCloseCircle } from "react-icons/io";
+import Messages from "@/components/MessageBox";
 
 export default function Baby() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isAuthenticated, setIsAuthenticated } = useAuth();
+  const { setReload, reload } = useAuth();
+  const [isOpen, setIsOpen] = useState(false);
+  // const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [messageData, setMessageData] = useState({ name: "", message: "" });
+  const [loading, setLoading] = useState(false);
 
   const AUTO_LOGOUT_TIME = 4 * 60 * 1000;
   const SESSION_TIMEOUT = 15 * 60 * 1000;
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value.toLowerCase());
@@ -26,10 +37,15 @@ export default function Baby() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("lastLoginTime", currentTime.toString());
       setIsAuthenticated(true);
-      showSuccessToast("I love youuu baby");
+      showSuccessToast("Loggen In✔️");
+      if (validPasswords.includes("red")) {
+        localStorage.setItem("username", "Ravish");
+      } else {
+        localStorage.setItem("username", "Deepu");
+      }
       setPassword("");
     } else {
-      showErrorToast("ops, baby you entered wrong password");
+      showErrorToast("Wrong Password ❌");
       setPassword("");
     }
   };
@@ -43,22 +59,36 @@ export default function Baby() {
 
   const handleMessageSubmit = async (e) => {
     e.preventDefault();
+    if (!messageData.name.trim()) {
+      setMessageData({ ...messageData, name: "Baby" });
+    }
+    if (!messageData.message.trim()) {
+      showErrorToast("Baby note to likho 😘");
+      return;
+    }
+    setLoading(true);
     try {
       const resp = await axios.post("/api/message", messageData, {
         headers: {
           "Content-Type": "application/json",
         },
       });
-      console.log(resp.data);
+      setReload(!reload);
       setMessageData({ name: "", message: "" }); // Clear form after submission
+      handleClose();
+      setLoading(false);
     } catch (error) {
       console.error("Error in API:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
     setIsAuthenticated(false);
+    showSuccessToast("Logged Out✔️");
   };
 
   useEffect(() => {
@@ -121,47 +151,16 @@ export default function Baby() {
   return (
     <div className="min-h-screen bg-gradient-to-r from-pink-200 via-red-300 to-pink-400">
       {!isAuthenticated ? (
-        <div className="flex flex-col min-h-screen bg-gradient-to-r from-pink-200 via-red-300 to-pink-400">
-          <div className="flex justify-between items-center p-4 bg-gradient-to-r from-pink-300 to-pink-500 text-white">
-            <div className="text-2xl font-bold">Sweet Notes</div>
-            <Link href={"/"}>
-              <button
-                type="button"
-                className="py-2 px-4 text-sm font-medium rounded-lg bg-white text-pink-500 hover:bg-pink-100 focus:outline-none focus:ring-2 focus:ring-pink-400 transition duration-300"
-              >
-                Home
-              </button>
-            </Link>
-          </div>
-
-          <div className="flex-1 flex items-center justify-center p-4 overflow-auto">
-            <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full text-center animate__animated animate__fadeIn animate__delay-1s">
-              <h1 className="text-2xl font-bold text-gray-800 mb-4">
-                Enter Password
-              </h1>
-              <form onSubmit={handlePasswordSubmit} className="space-y-4">
-                <input
-                  type="password"
-                  placeholder="Enter password"
-                  value={password}
-                  onChange={handlePasswordChange}
-                  className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
-                />
-                <button
-                  type="submit"
-                  className="w-full py-2 px-4 bg-gradient-to-r from-rose-400 to-red-500 text-white rounded-lg hover:from-pink-500 hover:to-red-600 transition duration-300 transform hover:scale-105"
-                >
-                  Submit
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+        <PasswordEnter
+          handlePasswordSubmit={handlePasswordSubmit}
+          password={password}
+          handlePasswordChange={handlePasswordChange}
+        />
       ) : (
         <>
-          <div className="flex flex-col h-screen">
+          <div className="flex flex-col min-h-screen relative">
             {/* Header Section */}
-            <div className="flex justify-between items-center p-4 bg-gradient-to-r from-pink-300 to-pink-500 text-white">
+            <div className="fixed w-full flex justify-between items-center p-4 bg-gradient-to-r from-pink-300 to-pink-500 text-white">
               <div className="text-2xl font-bold">Sweet Notes</div>
               <button
                 type="button"
@@ -172,48 +171,106 @@ export default function Baby() {
               </button>
             </div>
 
-            {/* Main Content */}
-            <div className="flex flex-1 items-center justify-center p-6 bg-gradient-to-r from-pink-50 to-pink-100">
-              <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
-                <h1 className="text-2xl font-bold text-gray-800 mb-4">
-                  Add Notes
-                </h1>
-                <form onSubmit={handleMessageSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-gray-700">
-                      Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      placeholder="Your name"
-                      value={messageData.name}
-                      onChange={handleMessageChange}
-                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-gray-700">
-                      Message
-                    </label>
-                    <textarea
-                      name="message"
-                      placeholder="Your message"
-                      value={messageData.message}
-                      onChange={handleMessageChange}
-                      className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
-                      rows="4"
-                    ></textarea>
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full py-2 px-4 bg-gradient-to-r from-rose-400 to-red-500 text-white rounded-lg hover:from-pink-500 hover:to-red-600 transition duration-300"
-                  >
-                    Submit
-                  </button>
-                </form>
-              </div>
+            {/* main content */}
+            <div className="pt-20">
+              <Messages />
             </div>
+
+            {/* //add notes button */}
+            <button
+              onClick={handleOpen}
+              className="right-9 bottom-9 fixed text-white bg-gradient-to-r from-rose-400 to-red-500 p-4 rounded-full shadow-lg hover:from-pink-500 hover:to-red-600 transition duration-300 flex items-center"
+            >
+              <FiPlus className="w-8 h-8" />
+            </button>
+
+            {/* Modal */}
+            {isOpen && (
+              <div
+                className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+                onClick={handleClose}
+              >
+                <div
+                  className="bg-white p-4 sm:p-6 rounded-lg shadow-lg max-w-md w-full relative mx-4 sm:mx-0"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <button
+                    onClick={handleClose}
+                    className="absolute top-2 right-2 text-pink-500 hover:text-pink-600"
+                  >
+                    <IoMdCloseCircle className="w-8 h-8" />
+                  </button>
+                  <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+                    Sweet Notes
+                  </h1>
+                  <form onSubmit={handleMessageSubmit} className="space-y-4">
+                    <div>
+                      <label htmlFor="name" className="block text-gray-700">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        value={messageData.name}
+                        onChange={handleMessageChange}
+                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="message" className="block text-gray-700">
+                        Note
+                      </label>
+                      <textarea
+                        name="message"
+                        placeholder="Leave a note here for your baby"
+                        value={messageData.message}
+                        onChange={handleMessageChange}
+                        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-pink-500 transition duration-300"
+                        rows="4"
+                      ></textarea>
+                    </div>
+                    <button
+                      type="submit"
+                      className={`w-full py-2 px-4 bg-gradient-to-r from-rose-400 to-red-500 text-white rounded-lg transition duration-300 ${
+                        loading
+                          ? "opacity-50 cursor-not-allowed"
+                          : "hover:from-pink-500 hover:to-red-600"
+                      }`}
+                      disabled={loading} // Disable button when loading
+                    >
+                      {loading ? (
+                        <span className="flex items-center justify-center">
+                          <svg
+                            className="animate-spin h-5 w-5 mr-3 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                          >
+                            <circle
+                              className="opacity-25"
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="currentColor"
+                              strokeWidth="4"
+                            ></circle>
+                            <path
+                              className="opacity-75"
+                              fill="currentColor"
+                              d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            ></path>
+                          </svg>
+                          Loading...
+                        </span>
+                      ) : (
+                        "Submit"
+                      )}
+                    </button>
+                  </form>
+                </div>
+              </div>
+            )}
           </div>
         </>
       )}

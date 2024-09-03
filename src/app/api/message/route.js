@@ -3,7 +3,7 @@ import { dbConnect } from "@/dbConnect/dbConnect";
 import { NextResponse } from "next/server";
 
 export async function POST(req) {
-  dbConnect();
+  await dbConnect();
   try {
     const body = await req.json();
     const { name, message } = body;
