@@ -97,12 +97,10 @@ const Messages = () => {
   const { reload } = useAuth();
   const [expandedMessageId, setExpandedMessageId] = useState(null);
 
-  console.log("testing get api");
   const fetchMessages = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/getdata");
       setMessagesData(data.data.reverse());
-      console.log("getapi: ", data);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
