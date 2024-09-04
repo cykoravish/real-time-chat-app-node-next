@@ -20,13 +20,14 @@ const MessageBox = ({
   // Updated data function
   const updatedData = async (seen, deleted) => {
     try {
-      await axios.post(
+      let info = await axios.post(
         "/api/update",
         { isSeen: seen, isDeleted: deleted, id },
         {
           headers: { "Content-Type": "application/json" },
         }
       );
+      console.log("postapi:", info);
     } catch (error) {
       console.error("Failed to update message:", error);
     }
