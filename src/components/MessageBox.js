@@ -100,7 +100,8 @@ const Messages = () => {
   const fetchMessages = useCallback(async () => {
     try {
       const { data } = await axios.get("/api/getdata");
-      setMessagesData(data.data.reverse().slice(0, 5));
+      setMessagesData(data.data.reverse());
+      console.log("getapi: ", data);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
