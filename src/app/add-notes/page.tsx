@@ -3,11 +3,31 @@ import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FloatingNavDemo } from "@/components/Navbar";
+import axios from "axios";
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
 
-  const handleNoteSubmit = () => {};
+  const handleNoteSubmit = async () => {
+    try {
+      console.log(messageNote);
+      const res = await axios.post(
+        "/api/message",
+        {
+          username: localStorage.getItem("username"),
+          message: messageNote,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(res);
+    } catch (error) {
+      console.log("error in api :", error);
+    }
+  };
 
   return (
     <>
