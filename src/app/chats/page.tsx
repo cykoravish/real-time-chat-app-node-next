@@ -61,7 +61,7 @@ export default function Chat() {
       setMessages((prevMessages) => [...prevMessages, file]);
     });
 
-    console.log("---------",username)
+    console.log("---------", username);
     socket.emit("set username", username);
 
     return () => {
@@ -283,39 +283,11 @@ export default function Chat() {
     <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
       <div className="flex-1 overflow-hidden relative">
         <div className="fixed z-20 top-0 left-0 right-0 bg-gray-900 text-center py-3 border-b border-gray-700 shadow-lg">
-          <div className="flex items-center justify-between px-4">
-            {/* User Status and Name */}
-            <div className="flex items-center space-x-2">
-              <span
-                className={`w-4 h-4 rounded-full ${
-                  otherUserStatus === "online" ? "bg-green-500" : "bg-gray-500"
-                }`}
-              ></span>
-              <span className="text-base text-gray-300 font-semibold">
-                {otherUser}
-              </span>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex space-x-3">
-              <button
-                onClick={clearChat}
-                className="bg-pink-400 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50 active:bg-pink-700"
-              >
-                Clear
-              </button>
-              <Link href={"/"}>
-                <button
-                  // onClick={refreshPage}
-                  className="bg-pink-400 text-white text-sm px-5 py-2 rounded-full font-bold shadow-lg hover:bg-pink-600 transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-pink-600 focus:ring-opacity-50 active:bg-pink-700"
-                >
-                  Home
-                </button>
-              </Link>
-            </div>
+          <div className="flex items-center justify-center px-4">
+            <FloatingNavDemo />
           </div>
         </div>
-        <div className="pt-24 pb-24 overflow-y-auto px-4">
+        <div className="pt-32 pb-24 overflow-y-auto px-4">
           <ul className="space-y-4">
             {messages.map((msg, index) => (
               <li

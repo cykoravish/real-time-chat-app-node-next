@@ -10,8 +10,7 @@ export default function Notes() {
 
   const handleNoteSubmit = async () => {
     try {
-      console.log(messageNote);
-      const res = await axios.post(
+      await axios.post(
         "/api/message",
         {
           username: localStorage.getItem("username"),
@@ -23,7 +22,7 @@ export default function Notes() {
           },
         }
       );
-      console.log(res);
+      setMessageNote("");
     } catch (error) {
       console.log("error in api :", error);
     }

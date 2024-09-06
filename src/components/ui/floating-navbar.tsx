@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import {
-  motion,
-  AnimatePresence,
-} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export const FloatingNav = ({
   navItems,
@@ -18,6 +16,8 @@ export const FloatingNav = ({
   }[];
   className?: string;
 }) => {
+  const pathname = usePathname();
+  // console.log("pathname: ", pathname);
 
   const visible = useState(true);
 
@@ -40,17 +40,25 @@ export const FloatingNav = ({
           className
         )}
       >
-        {navItems.map((navItem: any, idx: number) => (
-          <Link
-            key={`link=${idx}`}
-            href={navItem.link}
-            className={cn(
-              "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
-            )}
-          >
-            <span className="block text-xl">{navItem.name}</span>
-          </Link>
-        ))}
+        {navItems.map((navItem: any, idx: number) => {
+          const isActive = pathname === navItem.link;
+          // console.log("pathname:", pathname);
+          // console.log("navlink.link", navItem.link);
+          // console.log(isActive);
+
+          return (
+            <Link
+              key={`link=${idx}`}
+              href={navItem.link}
+              className={cn(
+                "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500",
+                isActive ? "text-pink-500" : ""
+              )}
+            >
+              <span className="block text-xl">{navItem.name}</span>
+            </Link>
+          );
+        })}
       </motion.div>
     </AnimatePresence>
   );
