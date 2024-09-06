@@ -4,7 +4,7 @@ import { connect } from "@/database/dbConnect";
 import MessageModel from "@/models/Message";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function POST(req: NextRequest) {
   await connect(); // Ensure the database is connected
 
   try {

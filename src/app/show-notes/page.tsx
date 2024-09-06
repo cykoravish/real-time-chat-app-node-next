@@ -19,7 +19,7 @@ export default function CardHoverEffectDemo() {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await axios.get("/api/getmsg");
+        const res = await axios.post("/api/getmsg");
         setMessages(res.data.data);
       } catch (error) {
         console.error("Failed to fetch messages", error);
