@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { FloatingNavDemo } from "@/components/Navbar";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
@@ -23,6 +24,7 @@ export default function Notes() {
         }
       );
       setMessageNote("");
+      toast.success("your note submitted successfully.");
     } catch (error) {
       console.log("error in api :", error);
     }

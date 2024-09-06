@@ -1,23 +1,37 @@
-// src/components/SomeComponent.tsx
-"use client"; // Ensure this is treated as a client-side component
+import { useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import toast from "react-hot-toast";
 
-import React from "react";
-// import { useCookie } from "../context/CookieContext";
-
-const SomeComponent = () => {
-  // const { username, setUsername } = useCookie();
+const LogoutButton = () => {
+  const router = useRouter();
 
   const handleLogout = () => {
-    // document.cookie = "username=; Path=/; Max-Age=0; SameSite=Strict"; // Remove the cookie
-    // setUsername(""); // Update context state
+    // Remove the username from localStorage
+    localStorage.removeItem("username");
+
+    // Remove the username cookie
+    removeCookie("username");
+
+    // Redirect to the home page or login page
+    router.push("/");
+    toast.success("Logged Out");
   };
-  // console.log("username is ", username);
+
+  const removeCookie = (name: string) => {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+  };
+
   return (
-    <div>
-      {/* <p>Username: {username}</p> */}
-      <button onClick={handleLogout}>Logout</button>
+    <div className="">
+      <Button
+        onClick={handleLogout}
+        className="rounded-full w-16 h-16"
+        variant="destructive"
+      >
+        Exit
+      </Button>
     </div>
   );
 };
 
-export default SomeComponent;
+export default LogoutButton;

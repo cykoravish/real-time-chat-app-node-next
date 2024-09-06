@@ -4,6 +4,7 @@ import axios from "axios";
 import { FloatingNavDemo } from "@/components/Navbar";
 
 import { HoverEffect } from "@/components/ui/card-hover-effect";
+import LogoutButton from "@/components/Logout";
 
 interface Message {
   _id: any;
@@ -12,51 +13,7 @@ interface Message {
   createdAt: any;
 }
 
-// export default function Home() {
-//   const [username, setUsername] = useState<string>("");
-//   const [message, setMessage] = useState<string>("");
-//   const [status, setStatus] = useState<string>("");
-//   const [messages, setMessages] = useState<Message[]>([]);
-
-//   // Fetch messages when the component loads
-//   useEffect(() => {
-//     const fetchMessages = async () => {
-//       try {
-//         const res = await axios.get("/api/getmsg");
-//         setMessages(res.data.data);
-//         console.log("messages", messages);
-//       } catch (error) {
-//         console.error("Failed to fetch messages", error);
-//       }
-//     };
-
-//     fetchMessages();
-//   }, []);
-
-//   return (
-//     <div>
-//       <FloatingNavDemo />
-//       <h1>Send Message</h1>
-
-//       {status && <p>{status}</p>}
-
-//       <h2>Messages</h2>
-//       <ul>
-//         {messages?.map((msg, index) => (
-//           <li key={index}>
-//             <strong>{msg.username}</strong>: {msg.message} <br />
-//             <small>{new Date(msg.createdAt).toLocaleString()}</small>
-//           </li>
-//         ))}
-//       </ul>
-//     </div>
-//   );
-// }
-
 export default function CardHoverEffectDemo() {
-  const [username, setUsername] = useState<string>("");
-  const [message, setMessage] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -73,11 +30,15 @@ export default function CardHoverEffectDemo() {
   }, []);
 
   return (
-    <div className="max-w-5xl mx-auto px-8 mt-20">
-      <FloatingNavDemo />
-      {/* <HoverEffect items={projects} /> */}
-      <HoverEffect items={messages} />
-    </div>
+    <>
+      <div className="max-w-5xl mx-auto px-8 mt-20 relative">
+        <FloatingNavDemo />
+        <HoverEffect items={messages} />
+        <div className="fixed bottom-14 right-14 z-50">
+          <LogoutButton />
+        </div>
+      </div>
+    </>
   );
 }
 export const projects = [
