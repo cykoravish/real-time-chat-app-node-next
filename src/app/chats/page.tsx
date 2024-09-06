@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -201,79 +202,6 @@ export default function Chat() {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, []);
-
-  // if (!loggedIn) {
-  // const handleUserClickWithEffect = () => {
-  // setClickedUser(user); // Trigger the hover effect for the clicked user
-  // setTimeout(() => {
-  // handleUserClick(); // Proceed with the original action
-  //   setClickedUser(null); // Reset the clicked user
-  // }, 100); // Short delay to show the hover effect (0.1 seconds)
-  // };
-
-  //   return (
-  //     <div className="h-screen flex flex-col items-center justify-center p-6 bg-gradient-to-r from-pink-200 via-rose-300 to-pink-400">
-  //       <FloatingNavDemo />
-  //       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-3xl space-y-10 md:space-y-0 md:space-x-16">
-  //         {Object.keys(avatars).map((user) => (
-  //           <div
-  //             key={user}
-  //             className={`relative flex flex-col items-center group transform transition-all duration-700 ${
-  //               clickedUser === user ? "scale-110" : ""
-  //             }`}
-  //             onClick={() => handleUserClickWithEffect(user)}
-  //           >
-  //             <div className="relative">
-  //               <div
-  //                 className={`absolute inset-0 bg-gradient-to-tr from-pink-500 to-red-500 rounded-full opacity-50 blur-lg transition-all duration-700 ${
-  //                   clickedUser === user ? "blur-sm" : ""
-  //                 }`}
-  //               ></div>
-  //               <Image
-  //                 src={avatars[user]}
-  //                 alt={user}
-  //                 width={200}
-  //                 height={200}
-  //                 className={`rounded-full border-4 border-white shadow-2xl cursor-pointer transition-transform duration-700 ease-in-out ${
-  //                   clickedUser === user ? "scale-125 rotate-6" : ""
-  //                 }`}
-  //               />
-  //             </div>
-  //             <h1
-  //               className="absolute text-xl font-bold tracking-wide text-white"
-  //               style={{
-  //                 left: "50%",
-  //                 top: "80%",
-  //                 transform: "translate(-50%, -50%)",
-  //               }}
-  //             >
-  //               {user}
-  //             </h1>
-  //           </div>
-  //         ))}
-  //       </div>
-
-  //       {/* Heart Icon with Button */}
-  //       <div className="mt-12">
-  //         <Link href={"/baby"}>
-  //           <button
-  //             type="button"
-  //             className="relative py-3 px-6 inline-flex items-center text-lg font-semibold text-white rounded-full shadow-lg bg-gradient-to-r from-rose-400 to-red-500 hover:from-pink-500 hover:to-red-600 focus:outline-none transition-all duration-700 transform hover:scale-110"
-  //           >
-  //             <span className="mr-2">💖</span> Sweet Notes
-  //           </button>
-  //         </Link>
-  //       </div>
-
-  //       {/* Floating Hearts Animation */}
-  //       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-  //         <div className="floating-heart absolute bottom-0 left-1/4 w-24 h-24 bg-rose-400 rounded-full opacity-50 blur-2xl"></div>
-  //         <div className="floating-heart absolute top-10 right-1/3 w-32 h-32 bg-pink-300 rounded-full opacity-75 blur-3xl"></div>
-  //         <div className="floating-heart absolute top-1/4 left-1/3 w-16 h-16 bg-red-400 rounded-full opacity-50 blur-xl"></div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   // Determine which user’s status to show
   const otherUser = username === "Ravish" ? "Deepu" : "Ravish";
