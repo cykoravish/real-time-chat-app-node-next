@@ -1,10 +1,6 @@
-// pages/api/messages.ts
 import { connect } from "@/database/dbConnect";
 import MessageModel from "@/models/Message";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
-// import dbConnect from '../../lib/mongodb';
-// import Message from '../../models/Message';
 
 interface MessageRequestBody {
   username: string;

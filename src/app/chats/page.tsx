@@ -15,7 +15,6 @@ import { FloatingNavDemo } from "@/components/Navbar";
 const avatars: any = {
   Ravish: "/ravish.png",
   Deepu: "/deepu.png",
-  // Add more avatars as needed
 };
 
 let socket: any;
@@ -28,11 +27,9 @@ export default function Chat() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
   const [username, setUsername] = useState<any>("");
-  console.log("status: ", userStatus);
   useEffect(() => {
     setUsername(localStorage.getItem("username"));
     const serverURL: any = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL;
-    console.log("serverurl", serverURL);
     // Initialize Socket.IO client
     socket = io(serverURL, {
       transports: ["websocket"], // Use WebSocket for better performance
@@ -46,7 +43,6 @@ export default function Chat() {
 
     // Listen for user status updates
     socket.on("user status", (status: any) => {
-      console.log("gettig status,", status);
       setUserStatus(status);
     });
 
@@ -60,7 +56,6 @@ export default function Chat() {
       setMessages((prevMessages) => [...prevMessages, file]);
     });
 
-    console.log("---------", username);
     socket.emit("set username", username);
 
     return () => {
@@ -84,7 +79,6 @@ export default function Chat() {
         username,
         message,
       };
-      console.log("chatMessage: :", chatMessage);
 
       if (files && files.length > 0) {
         const file: File = files[0];
@@ -102,7 +96,6 @@ export default function Chat() {
         };
         reader.readAsDataURL(file); // Read file as data URL
       } else {
-        console.log("emit", chatMessage);
         socket.emit("chat message", chatMessage);
         socket.emit("set username", username);
       }
@@ -114,7 +107,6 @@ export default function Chat() {
     }
     setSelectedImage(null);
   };
-  // console.log(messages);
   const handleInputChange = (e: any) => {
     setMessage(e?.target.value);
 
@@ -137,12 +129,10 @@ export default function Chat() {
           fileName: file.name,
           fileType: file.type,
         };
-        // console.log("fileData", fileData)
-        // socket.emit("chat file", fileData);
       };
       reader.readAsDataURL(file); // Read file as data URL
     }
-    // handleInputChange();
+
   };
 
   const clearChat = () => {
@@ -237,7 +227,7 @@ export default function Chat() {
                 <div
                   className={`flex-1 p-3 rounded-lg ${
                     msg.username === username
-                      ? "bg-blue-600 text-white"
+                      ? "bg-green-600 text-white"
                       : "bg-gray-800 text-gray-200"
                   } max-w-full overflow-hidden`}
                 >

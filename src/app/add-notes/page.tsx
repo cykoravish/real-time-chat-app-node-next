@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-// import { Button } from "@/components/ui/button";
 import { FloatingNavDemo } from "@/components/Navbar";
 import toast from "react-hot-toast";
 import axios from "axios";

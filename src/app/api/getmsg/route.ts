@@ -1,5 +1,3 @@
-// pages/api/messages.ts
-
 import { connect } from "@/database/dbConnect";
 import MessageModel from "@/models/Message";
 import { NextRequest, NextResponse } from "next/server";
