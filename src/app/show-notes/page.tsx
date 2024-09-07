@@ -10,6 +10,7 @@ interface Message {
   username: any;
   message: any;
   createdAt: any;
+  markedAsRead: any;
 }
 
 export default function CardHoverEffectDemo() {
@@ -28,11 +29,19 @@ export default function CardHoverEffectDemo() {
     fetchMessages();
   }, []);
 
+  const seenMessages = async (_id: any) => {
+    try {
+      const res = await axios.post("/api/markedSeen", { _id: _id });
+    } catch (error) {
+      console.error("Failed to seen messages", error);
+    }
+  };
+
   return (
     <>
       <div className="max-w-5xl mx-auto px-8 mt-20 relative">
         <FloatingNavDemo />
-        <HoverEffect items={messages} />
+        <HoverEffect items={messages} markedAsRead={seenMessages} />
         <div className="fixed bottom-14 right-14 z-50"></div>
       </div>
     </>

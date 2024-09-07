@@ -4,6 +4,7 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 interface IMessage extends Document {
   username: string;
   message: string;
+  markedAsRead: boolean;
   createdAt: Date;
 }
 
@@ -15,6 +16,10 @@ const MessageSchema: Schema<IMessage> = new mongoose.Schema({
   message: {
     type: String,
     required: true,
+  },
+  markedAsRead: {
+    type: Boolean,
+    default: false,
   },
   createdAt: {
     type: Date,

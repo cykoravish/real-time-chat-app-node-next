@@ -22,6 +22,7 @@ export default function Notes() {
         {
           username: localStorage.getItem("username"),
           message: messageNote,
+          markedAsRead: false,
         },
         {
           headers: {

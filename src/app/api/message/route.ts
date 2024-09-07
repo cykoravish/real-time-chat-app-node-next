@@ -5,11 +5,13 @@ import { NextRequest, NextResponse } from "next/server";
 interface MessageRequestBody {
   username: string;
   message: string;
+  markedAsRead: boolean;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, message }: MessageRequestBody = await req.json();
+    const { username, message, markedAsRead }: MessageRequestBody =
+      await req.json();
 
     if (!username || !message) {
       return NextResponse.json(
@@ -25,6 +27,7 @@ export async function POST(req: NextRequest) {
     const newMessage = new MessageModel({
       username,
       message,
+      markedAsRead,
       createdAt: new Date(), // Date will be automatically stored
     });
 

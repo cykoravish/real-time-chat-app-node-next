@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "./moving-border";
+import { useAppContext } from "@/context/AuthsContext";
 
 export const HoverEffect = ({
   items,
+  markedAsRead,
   className,
 }: {
   items: {
@@ -13,11 +14,12 @@ export const HoverEffect = ({
     username: any;
     message: any;
     createdAt: any;
+    markedAsRead: any;
   }[];
+  markedAsRead: (id: any) => void;
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
   const formatDate = (createdAt: string) => {
     const date = new Date(createdAt);
     return date.toLocaleString("en-US", {
@@ -29,8 +31,10 @@ export const HoverEffect = ({
       hour12: true,
     });
   };
-
-  console.log("items: ", items);
+  let [username, setUsername] = useState<any>("");
+  useEffect(() => {
+    setUsername(localStorage.getItem("username"));
+  }, []);
   return (
     <div
       className={cn(
@@ -72,9 +76,19 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card className="relative">
             <CardTitle>{item.username}</CardTitle>
-            <span className="text-gray-400 absolute right-0 top-2">
+            <span className="text-gray-400 absolute right-0 top-0 text-sm">
               {formatDate(item.createdAt)}
             </span>
+
+            {item.username === username && (
+              <button
+                className="text-pink-400 border border-pink-400 rounded-lg px-2 absolute right-0 top-6 text-base cursor-pointer hover:bg-pink-400 hover:text-black"
+                onClick={() => markedAsRead(item._id)}
+              >
+                Mark as Seen
+              </button>
+            )}
+
             <CardDescription>{item.message}</CardDescription>
           </Card>
         </div>
