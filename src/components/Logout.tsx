@@ -14,8 +14,8 @@ const LogoutButton = () => {
 
     // Redirect to the home page or login page
     router.push("/");
-    toast.success("Logged Out");
     window.location.reload();
+    toast.success("Logged Out");
   };
 
   const removeCookie = (name: string) => {
