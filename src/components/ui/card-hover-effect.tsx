@@ -112,7 +112,7 @@ export const HoverEffect = ({
                     <TiTick className="inline" />
                   </>
                 ) : (
-                  "Mark as Seen"
+                  <span className="text-pink-400 border border-pink-400">Mark as Seen</span>
                 )}
               </button>
             )}
