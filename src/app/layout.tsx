@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "react-hot-toast";
-import { AppProvider } from "@/context/AuthsContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -25,10 +24,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <AppProvider>
-            <Toaster />
-            {children}
-          </AppProvider>
+          <Toaster />
+          {children}
         </ThemeProvider>
       </body>
     </html>

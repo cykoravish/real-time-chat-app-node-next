@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Button } from "./moving-border";
-import { useAppContext } from "@/context/AuthsContext";
+import { TiTick } from "react-icons/ti";
 
 export const HoverEffect = ({
   items,
@@ -45,9 +45,9 @@ export const HoverEffect = ({
       <div className="flex justify-center items-center mb-10">
         <Button
           borderRadius="1.75rem"
-          className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800"
+          className={`bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800`}
         >
-          Total Topics: {items.length}
+          Total Notes: {items.length}
         </Button>
       </div>
       {items.map((item, idx) => (
@@ -74,18 +74,46 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          <Card className="relative">
-            <CardTitle>{item.username}</CardTitle>
+          <Card
+            className={`${
+              item.username === "Ravish"
+                ? "border dark:border-blue-400"
+                : "dark:border-pink-400"
+            } relative`}
+          >
+            <CardTitle
+              className={`${
+                item.username === "Ravish" ? "text-blue-400" : "text-pink-400"
+              }`}
+            >
+              {item.username}
+            </CardTitle>
             <span className="text-gray-400 absolute right-0 top-0 text-sm">
               {formatDate(item.createdAt)}
             </span>
 
-            {item.username === username && (
+            {item.username === username && item.markedAsRead && (
               <button
-                className="text-pink-400 border border-pink-400 rounded-lg px-2 absolute right-0 top-6 text-base cursor-pointer hover:bg-pink-400 hover:text-black"
+                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-6 text-xs cursor-pointer hover:bg-pink-400 hover:text-black"
                 onClick={() => markedAsRead(item._id)}
               >
-                Mark as Seen
+                <span>seen</span>
+                <TiTick className="inline" />
+              </button>
+            )}
+            {item.username !== username && (
+              <button
+                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-6 text-xs cursor-pointer hover:bg-pink-400 hover:text-black"
+                onClick={() => markedAsRead(item._id)}
+              >
+                {item.markedAsRead ? (
+                  <>
+                    <span>seen</span>
+                    <TiTick className="inline" />
+                  </>
+                ) : (
+                  "Mark as Seen"
+                )}
               </button>
             )}
 
@@ -107,7 +135,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-pink-500 group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent group-hover:border-slate-700 relative z-20",
         className
       )}
     >

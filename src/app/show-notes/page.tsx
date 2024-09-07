@@ -32,6 +32,7 @@ export default function CardHoverEffectDemo() {
   const seenMessages = async (_id: any) => {
     try {
       const res = await axios.post("/api/markedSeen", { _id: _id });
+      window.location.reload();
     } catch (error) {
       console.error("Failed to seen messages", error);
     }
