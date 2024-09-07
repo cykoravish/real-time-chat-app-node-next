@@ -7,7 +7,7 @@ import Image from "next/image";
 import { HiOutlinePhotograph } from "react-icons/hi";
 import { IoSend } from "react-icons/io5";
 import { IoMdCloseCircle } from "react-icons/io";
-import Link from "next/link";
+
 import { FormEvent } from "react";
 import { FloatingNavDemo } from "@/components/Navbar";
 
@@ -23,9 +23,7 @@ let socket: any;
 export default function Chat() {
   const [message, setMessage] = useState<string>("");
   const [messages, setMessages] = useState<any[]>([]);
-  const [loggedIn, setLoggedIn] = useState<any>(false);
   const [userStatus, setUserStatus] = useState<any>({});
-  const [clickedUser, setClickedUser] = useState<any>(null);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | null>(null);
@@ -70,14 +68,6 @@ export default function Chat() {
     };
   }, []);
 
-  // useEffect(() => {
-  //   const handleUserClick = (user: any) => {
-
-  //     // setLoggedIn(true);
-  //     // socket.emit("set username", user);
-  //   };
-  //   handleUserClick(username);
-  // }, []);
 
   interface ChatMessage {
     username: string | null;
@@ -208,9 +198,9 @@ export default function Chat() {
   const otherUserStatus = userStatus[otherUser];
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-900 text-gray-200">
-      <div className="flex-1 overflow-hidden relative">
-        <div className="fixed z-20 top-0 left-0 right-0 bg-gray-900 text-center py-3 border-b border-gray-700 shadow-lg">
+    <div className="min-h-screen flex flex-col dark:bg-black text-gray-200">
+      <div className="overflow-hidden">
+        <div className="dark:bg-black text-center border-b shadow-lg">
           <div className="flex items-center justify-center px-4">
             <FloatingNavDemo />
           </div>
@@ -297,7 +287,7 @@ export default function Chat() {
 
         <form
           onSubmit={sendMessage}
-          className="fixed bottom-0 left-0 right-0 bg-gray-800 border-t border-gray-700 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
+          className="fixed bottom-0 left-0 right-0 dark:bg-black border-t border-gray-500 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
           <div className="relative flex-1 h-auto flex items-center justify-between space-x-2">
             {/* Image Upload Icon */}
@@ -320,7 +310,7 @@ export default function Chat() {
               onChange={handleInputChange}
               placeholder="Message..."
               rows={1}
-              className="w-full h-full bg-gray-800 text-gray-200 resize-none placeholder:text-gray-500 placeholder:font-light placeholder:text-sm focus:outline-none"
+              className="w-full h-full dark:bg-black text-gray-200 resize-none placeholder:text-gray-500 placeholder:font-light placeholder:text-sm focus:outline-none"
               style={{
                 padding: "0.5rem 2rem",
                 boxSizing: "border-box",
@@ -331,7 +321,7 @@ export default function Chat() {
             <button
               type="submit"
               disabled={!(message?.trim() || selectedImage)}
-              className="text-pink-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
+              className="text-green-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
             >
               <IoSend className="w-6 h-6" />
             </button>

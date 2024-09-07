@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { Button } from "./moving-border";
 
 export const HoverEffect = ({
   items,
@@ -24,13 +25,16 @@ export const HoverEffect = ({
         className
       )}
     >
-      <div className="fixed w-16 h-16 rounded-full bg-gray-700 text-center z-40 flex items-center justify-center font-bold text-white right-14 bottom-32">
-        Total <br />
-        {items.length}
+      <div className="flex justify-center items-center mb-10">
+        <Button
+          borderRadius="1.75rem"
+          className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-green-800"
+        >
+          Total Topics: {items.length}
+        </Button>
       </div>
       {items.map((item, idx) => (
-        <Link
-          href={""}
+        <div
           key={item?._id}
           className="relative group  block p-2 h-full w-full"
           onMouseEnter={() => setHoveredIndex(idx)}
@@ -57,7 +61,7 @@ export const HoverEffect = ({
             <CardTitle>{item.username}</CardTitle>
             <CardDescription>{item.message}</CardDescription>
           </Card>
-        </Link>
+        </div>
       ))}
     </div>
   );
@@ -73,7 +77,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-green-500 group-hover:border-slate-700 relative z-20",
         className
       )}
     >

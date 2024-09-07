@@ -4,7 +4,6 @@ import axios from "axios";
 import { FloatingNavDemo } from "@/components/Navbar";
 
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-import LogoutButton from "@/components/Logout";
 
 interface Message {
   _id: any;
@@ -35,7 +34,6 @@ export default function CardHoverEffectDemo() {
         <FloatingNavDemo />
         <HoverEffect items={messages} />
         <div className="fixed bottom-14 right-14 z-50">
-          <LogoutButton />
         </div>
       </div>
     </>

@@ -16,14 +16,16 @@ export default function SignupFormDemo() {
     if (passwords?.includes(password.toLowerCase())) {
       if (password.toLowerCase() === "red") {
         // Set a cookie after validating the password
-        document.cookie = `username="Ravish"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
-        // document.cookie = `username=Ravish; Max-Age=2700;`;
+        // document.cookie = `username="Ravish"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
+        document.cookie = `username=Ravish; Max-Age=2700;`;
         localStorage.setItem("username", "Ravish");
+        window.location.reload();
       } else {
         // Set a cookie after validating the password
-        document.cookie = `username="Deepu"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
-        // document.cookie = `username=Deepu; Max-Age=2700;`;
+        // document.cookie = `username="Deepu"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
+        document.cookie = `username=Deepu; Max-Age=2700;`;
         localStorage.setItem("username", "Deepu");
+        window.location.reload();
       }
 
       router.push("/show-notes");
@@ -36,8 +38,8 @@ export default function SignupFormDemo() {
   };
   return (
     <div className="flex justify-center">
-      <div className="max-w-md w-full mx-2 rounded-lg md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black">
-        <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
+      <div className="max-w-md w-full mx-2 rounded-lg md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-green-500">
+        <h2 className="font-bold text-xl text-neutral-800 dark:text-green-500">
           Welcome to Sweet Notes
         </h2>
         <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">
