@@ -112,7 +112,7 @@ export const HoverEffect = ({
                     <TiTick className="inline" />
                   </>
                 ) : (
-                  <span className="text-pink-400 border border-pink-400 w-full rounded-full">
+                  <span className="text-pink-400 border border-pink-400 px-2 w-full rounded-full">
                     Mark as Seen
                   </span>
                 )}
