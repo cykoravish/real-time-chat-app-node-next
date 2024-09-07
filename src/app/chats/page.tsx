@@ -219,7 +219,7 @@ export default function Chat() {
                   <span
                     className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${
                       userStatus[msg.username] === "online"
-                        ? "bg-green-500"
+                        ? "bg-pink-500"
                         : "bg-gray-500"
                     }`}
                   ></span>
@@ -227,7 +227,7 @@ export default function Chat() {
                 <div
                   className={`flex-1 p-3 rounded-lg ${
                     msg.username === username
-                      ? "bg-green-600 text-white"
+                      ? "bg-pink-600 text-white"
                       : "bg-gray-800 text-gray-200"
                   } max-w-full overflow-hidden`}
                 >
@@ -277,7 +277,7 @@ export default function Chat() {
 
         <form
           onSubmit={sendMessage}
-          className="fixed bottom-0 left-0 right-0 dark:bg-black border-t border-gray-500 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
+          className="fixed bottom-0 left-0 right-0 dark:bg-black border-t border-pink-500 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
           <div className="relative flex-1 h-auto flex items-center justify-between space-x-2">
             {/* Image Upload Icon */}
@@ -311,7 +311,7 @@ export default function Chat() {
             <button
               type="submit"
               disabled={!(message?.trim() || selectedImage)}
-              className="text-green-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
+              className="text-pink-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
             >
               <IoSend className="w-6 h-6" />
             </button>

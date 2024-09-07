@@ -38,8 +38,8 @@ export default function SignupFormDemo() {
   };
   return (
     <div className="flex justify-center">
-      <div className="max-w-md w-full mx-2 rounded-lg md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-green-500">
-        <h2 className="font-bold text-xl text-neutral-800 dark:text-green-500">
+      <div className="max-w-md w-full mx-2 rounded-lg md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-pink-500">
+        <h2 className="font-bold text-xl text-neutral-800 dark:text-pink-500">
           Welcome to Sweet Notes
         </h2>
         <p className="text-neutral-600 text-sm max-w-sm mt-2 dark:text-neutral-300">

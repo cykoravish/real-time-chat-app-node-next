@@ -33,8 +33,7 @@ export default function CardHoverEffectDemo() {
       <div className="max-w-5xl mx-auto px-8 mt-20 relative">
         <FloatingNavDemo />
         <HoverEffect items={messages} />
-        <div className="fixed bottom-14 right-14 z-50">
-        </div>
+        <div className="fixed bottom-14 right-14 z-50"></div>
       </div>
     </>
   );

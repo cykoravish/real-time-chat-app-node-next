@@ -18,6 +18,19 @@ export const HoverEffect = ({
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
+  const formatDate = (createdAt: string) => {
+    const date = new Date(createdAt);
+    return date.toLocaleString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+  };
+
+  console.log("items: ", items);
   return (
     <div
       className={cn(
@@ -28,7 +41,7 @@ export const HoverEffect = ({
       <div className="flex justify-center items-center mb-10">
         <Button
           borderRadius="1.75rem"
-          className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-green-800"
+          className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800"
         >
           Total Topics: {items.length}
         </Button>
@@ -57,8 +70,11 @@ export const HoverEffect = ({
               />
             )}
           </AnimatePresence>
-          <Card>
+          <Card className="relative">
             <CardTitle>{item.username}</CardTitle>
+            <span className="text-gray-400 absolute right-0 top-2">
+              {formatDate(item.createdAt)}
+            </span>
             <CardDescription>{item.message}</CardDescription>
           </Card>
         </div>
@@ -77,7 +93,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-green-500 group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-pink-500 group-hover:border-slate-700 relative z-20",
         className
       )}
     >

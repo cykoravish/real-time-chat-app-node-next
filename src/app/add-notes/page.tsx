@@ -54,7 +54,7 @@ export default function Notes() {
               onClick={handleNoteSubmit}
               disabled={loading}
               borderRadius="1.75rem"
-              className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-green-800"
+              className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800"
             >
               {loading ? "loading.." : "Add"}
             </Button>
