@@ -103,7 +103,7 @@ export const HoverEffect = ({
             )}
             {item.username !== username && (
               <button
-                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-6 text-xs cursor-pointer hover:bg-pink-400 hover:text-black"
+                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-6 text-xs cursor-pointer hover:bg-pink-400 hover:text-black overflow-hidden"
                 onClick={() => markedAsRead(item._id)}
               >
                 {item.markedAsRead ? (
@@ -112,7 +112,9 @@ export const HoverEffect = ({
                     <TiTick className="inline" />
                   </>
                 ) : (
-                  <span className="text-pink-400 border border-pink-400">Mark as Seen</span>
+                  <span className="text-pink-400 border border-pink-400 w-full rounded-full">
+                    Mark as Seen
+                  </span>
                 )}
               </button>
             )}
