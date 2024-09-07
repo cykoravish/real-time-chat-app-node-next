@@ -16,7 +16,7 @@ export const FloatingNav = ({
   }[];
   className?: string;
 }) => {
-  let auth = document.cookie.includes("username");
+  // let auth = document.cookie.includes("username");
 
   const visible = useState(true);
 
@@ -39,26 +39,20 @@ export const FloatingNav = ({
           className
         )}
       >
-        {auth ? (
-          <>
-            {navItems.map((navItem: any, idx: number) => {
-              return (
-                <Link
-                  key={`link=${idx}`}
-                  href={navItem.link}
-                  className={cn(
-                    "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-green-300 hover:text-green-500"
-                  )}
-                >
-                  <span className="block text-[16px]">{navItem.name}</span>
-                </Link>
-              );
-            })}
-            <LogoutButton />
-          </>
-        ) : (
-          <div>LogIn</div>
-        )}
+        {navItems.map((navItem: any, idx: number) => {
+          return (
+            <Link
+              key={`link=${idx}`}
+              href={navItem.link}
+              className={cn(
+                "relative dark:text-neutral-50 items-center flex space-x-1 text-neutral-600 dark:hover:text-green-300 hover:text-green-500"
+              )}
+            >
+              <span className="block text-[16px]">{navItem.name}</span>
+            </Link>
+          );
+        })}
+        <LogoutButton />
       </motion.div>
     </AnimatePresence>
   );
