@@ -16,14 +16,14 @@ export default function SignupFormDemo() {
     if (passwords?.includes(password.toLowerCase())) {
       if (password.toLowerCase() === "red") {
         // Set a cookie after validating the password
-        // document.cookie = `username="Ravish"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
-        document.cookie = `username=Ravish; Max-Age=2700;`;
+        document.cookie = `username="Ravish"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
+        // document.cookie = `username=Ravish; Max-Age=2700;`;
         localStorage.setItem("username", "Ravish");
         window.location.reload();
       } else {
         // Set a cookie after validating the password
-        // document.cookie = `username="Deepu"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
-        document.cookie = `username=Deepu; Max-Age=2700;`;
+        document.cookie = `username="Deepu"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
+        // document.cookie = `username=Deepu; Max-Age=2700;`;
         localStorage.setItem("username", "Deepu");
         window.location.reload();
       }
