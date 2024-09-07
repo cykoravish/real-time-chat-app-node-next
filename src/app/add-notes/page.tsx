@@ -5,6 +5,9 @@ import { FloatingNavDemo } from "@/components/Navbar";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Button } from "@/components/ui/moving-border";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+
+const words = `😘RAVISH ❤️ DEEPU😘`;
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
@@ -45,6 +48,9 @@ export default function Notes() {
       <FloatingNavDemo />
       <div className="h-screen w-full flex justify-center items-center p-5">
         <div className="grid w-full gap-8">
+          <div className="flex justify-center items-center">
+            <TextGenerateEffect words={words} />
+          </div>
           <Textarea
             placeholder="Type here what's in your mind."
             value={messageNote}

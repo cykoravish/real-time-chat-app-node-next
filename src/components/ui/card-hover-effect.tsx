@@ -84,7 +84,7 @@ export const HoverEffect = ({
             <CardTitle
               className={`${
                 item.username === "Ravish" ? "text-blue-400" : "text-pink-400"
-              }`}
+              } font-mono underline mt-12`}
             >
               {item.username}
             </CardTitle>
@@ -94,7 +94,7 @@ export const HoverEffect = ({
 
             {item.username === username && item.markedAsRead && (
               <button
-                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-6 text-xs cursor-pointer hover:bg-pink-400 hover:text-black"
+                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-8 text-xs cursor-pointer hover:bg-pink-400 hover:text-black"
                 onClick={() => markedAsRead(item._id)}
               >
                 <span>seen</span>
@@ -103,16 +103,16 @@ export const HoverEffect = ({
             )}
             {item.username !== username && (
               <button
-                className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-6 text-xs cursor-pointer hover:bg-pink-400 hover:text-black overflow-hidden"
+                className="absolute right-0 top-8 text-xs cursor-pointer"
                 onClick={() => markedAsRead(item._id)}
               >
                 {item.markedAsRead ? (
-                  <>
-                    <span>seen</span>
+                  <div className="border border-gray-500 rounded-lg px-2 hover:bg-pink-400">
+                    <span className="text-gray-400 hover:text-black">seen</span>
                     <TiTick className="inline" />
-                  </>
+                  </div>
                 ) : (
-                  <span className="text-pink-400 border border-pink-400 px-2 w-full rounded-full">
+                  <span className="text-pink-400 border border-pink-400 rounded-lg px-2 hover:bg-pink-400 hover:text-black">
                     Mark as Seen
                   </span>
                 )}
@@ -137,12 +137,12 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent group-hover:border-slate-700 relative z-20",
+        "rounded-2xl h-full w-full p-2 overflow-hidden bg-black border border-transparent group-hover:border-slate-700 relative z-20",
         className
       )}
     >
       <div className="relative z-50">
-        <div className="p-4">{children}</div>
+        <div className="p-3">{children}</div>
       </div>
     </div>
   );
@@ -155,7 +155,7 @@ export const CardTitle = ({
   children: React.ReactNode;
 }) => {
   return (
-    <h4 className={cn("text-zinc-100 font-bold tracking-wide mt-4", className)}>
+    <h4 className={cn("text-zinc-100 font-bold tracking-wide", className)}>
       {children}
     </h4>
   );
@@ -170,7 +170,7 @@ export const CardDescription = ({
   return (
     <p
       className={cn(
-        "mt-8 text-zinc-400 tracking-wide leading-relaxed text-sm",
+        "mt-6 text-zinc-400 tracking-wide leading-relaxed text-sm break-words whitespace-pre-wrap font-semibold",
         className
       )}
     >
