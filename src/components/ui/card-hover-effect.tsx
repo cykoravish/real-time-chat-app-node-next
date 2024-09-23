@@ -42,14 +42,14 @@ export const HoverEffect = ({
         className
       )}
     >
-      <div className="flex justify-center items-center mb-10">
+      {/* <div className="flex justify-center items-center mb-10">
         <Button
           borderRadius="1.75rem"
           className={`bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800`}
         >
           Total Notes: {items.length}
         </Button>
-      </div>
+      </div> */}
       {items.map((item, idx) => (
         <div
           key={item?._id}
