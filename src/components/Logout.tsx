@@ -13,8 +13,8 @@ const LogoutButton = () => {
     removeCookie("username");
 
     // Redirect to the home page or login page
-    router.push("/");
     window.location.reload();
+    router.push("/");
     toast.success("Logged Out");
   };
 
