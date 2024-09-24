@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Button } from "@/components/ui/moving-border";
 import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import CloudinaryUploadBtn from "@/components/CloudinaryUploadBtn";
 
 const words = `😘RAVISH ❤️ DEEPU😘`;
 
@@ -45,6 +46,7 @@ export default function Notes() {
 
   return (
     <>
+      <CloudinaryUploadBtn />
       <FloatingNavDemo />
       <div className="h-screen w-full flex justify-center items-center p-5">
         <div className="grid w-full gap-8">

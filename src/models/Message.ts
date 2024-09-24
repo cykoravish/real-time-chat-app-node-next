@@ -4,6 +4,7 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 interface IMessage extends Document {
   username: string;
   message: string;
+  image_url?: string;
   markedAsRead: boolean;
   createdAt: Date;
 }
@@ -16,6 +17,9 @@ const MessageSchema: Schema<IMessage> = new mongoose.Schema({
   message: {
     type: String,
     required: true,
+  },
+  image_url: {
+    type: String,
   },
   markedAsRead: {
     type: Boolean,
