@@ -27,10 +27,10 @@ export const HoverEffect = ({
   let [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
   let [modalImageUrl, setModalImageUrl] = useState<string | null>(null); // Image URL for the modal
   const router = useRouter();
-  let [validImages, setValidImages] = useState<{ [key: string]: boolean }>({}); 
+  let [validImages, setValidImages] = useState<{ [key: string]: boolean }>({});
 
-   // Function to validate the image URL
-   const checkImageValidity = (url: string, id: string) => {
+  // Function to validate the image URL
+  const checkImageValidity = (url: string, id: string) => {
     const img = new window.Image();
     img.src = url;
 
@@ -45,8 +45,8 @@ export const HoverEffect = ({
     };
   };
 
-   // Check all image URLs when the component mounts
-   useEffect(() => {
+  // Check all image URLs when the component mounts
+  useEffect(() => {
     items.forEach((item) => {
       if (item.image_url) {
         checkImageValidity(item.image_url, item._id); // Validate image URLs
@@ -148,7 +148,7 @@ export const HoverEffect = ({
             {item.username === username && item.markedAsRead && (
               <button
                 className="text-gray-400 border border-gray-500 rounded-lg px-2 absolute right-0 top-8 text-xs cursor-pointer hover:bg-pink-400 hover:text-black"
-                onClick={() => markedAsRead(item._id)}
+                // onClick={() => markedAsRead(item._id)}
               >
                 <span>seen</span>
                 <TiTick className="inline" />
@@ -157,7 +157,7 @@ export const HoverEffect = ({
             {item.username !== username && (
               <button
                 className="absolute right-0 top-8 text-xs cursor-pointer"
-                onClick={() => markedAsRead(item._id)}
+                // onClick={() => markedAsRead(item._id)}
               >
                 {item.markedAsRead ? (
                   <div className="border border-gray-500 rounded-lg px-2 hover:bg-pink-400">
@@ -165,7 +165,10 @@ export const HoverEffect = ({
                     <TiTick className="inline" />
                   </div>
                 ) : (
-                  <span className="text-pink-400 border border-pink-400 rounded-lg px-2 hover:bg-pink-400 hover:text-black">
+                  <span
+                    className="text-pink-400 border border-pink-400 rounded-lg px-2 hover:bg-pink-400 hover:text-black"
+                    onClick={() => markedAsRead(item._id)}
+                  >
                     Mark as Seen
                   </span>
                 )}
