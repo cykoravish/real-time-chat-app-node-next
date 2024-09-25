@@ -12,6 +12,7 @@ const words = `😘RAVISH ❤️ DEEPU😘`;
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
+  const [imageURL, setImageURL] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   const handleNoteSubmit = async () => {
@@ -26,6 +27,7 @@ export default function Notes() {
         {
           username: localStorage.getItem("username"),
           message: messageNote,
+          image_url: imageURL,
           markedAsRead: false,
         },
         {
@@ -35,10 +37,12 @@ export default function Notes() {
         }
       );
       setMessageNote("");
+      setImageURL("");
       toast.success("Added Successfully. visit home page to see notes");
-    } catch (error) {
+    } catch (error: any) {
       setLoading(false);
-      console.log("error in api :", error);
+      toast.error(error.response.data.error);
+      console.log("error in api :", error.response.data.error);
     } finally {
       setLoading(false);
     }
@@ -46,7 +50,6 @@ export default function Notes() {
 
   return (
     <>
-      <CloudinaryUploadBtn />
       <FloatingNavDemo />
       <div className="h-screen w-full flex justify-center items-center p-5">
         <div className="grid w-full gap-8">
@@ -67,6 +70,10 @@ export default function Notes() {
             >
               {loading ? "loading.." : "Add"}
             </Button>
+            <CloudinaryUploadBtn
+              setImageURL={setImageURL}
+              imageURL={imageURL}
+            />
           </div>
         </div>
       </div>

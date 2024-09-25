@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Button } from "./moving-border";
 import { TiTick } from "react-icons/ti";
+import Image from "next/image";
 
 export const HoverEffect = ({
   items,
@@ -13,6 +14,7 @@ export const HoverEffect = ({
     _id: any;
     username: any;
     message: any;
+    image_url?: any;
     createdAt: any;
     markedAsRead: any;
   }[];
@@ -120,6 +122,20 @@ export const HoverEffect = ({
             )}
 
             <CardDescription>{item.message}</CardDescription>
+
+            {item.image_url && (
+              <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
+                {/* Responsive height based on viewport */}
+                <Image
+                  src={item.image_url}
+                  alt="cardImage"
+                  fill
+                  className="object-contain"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
+                />
+              </div>
+            )}
           </Card>
         </div>
       ))}
