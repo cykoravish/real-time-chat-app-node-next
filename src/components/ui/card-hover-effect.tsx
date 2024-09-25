@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-
-
-
+import { IoIosCloseCircle } from "react-icons/io";
+import { Button } from "./moving-border";
 
 export const HoverEffect = ({
   items,
@@ -154,20 +153,19 @@ export const HoverEffect = ({
               //   className="relative w-full aspect-[16/10] sm:aspect-[4/3] md:aspect-[5/3] lg:aspect-[3/1]"
               //   onClick={() => openModal(item.image_url)}
               // >
-                <div className="flex justify-center">
-
-                  <Image
-                    src={item.image_url}
-                    alt="cardImage"
-                    width={350}
-                    height={400}
-                    onClick={() => openModal(item.image_url)}
-                    // fill
-                    // className="object-contain border border-red-500"
-                    // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority
-                  />
-                </div>
+              <div className="flex justify-center">
+                <Image
+                  src={item.image_url}
+                  alt="cardImage"
+                  width={350}
+                  height={400}
+                  onClick={() => openModal(item.image_url)}
+                  // fill
+                  // className="object-contain border border-red-500"
+                  // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  priority
+                />
+              </div>
               // </div>
             )}
           </Card>
@@ -185,12 +183,12 @@ export const HoverEffect = ({
               className="object-contain"
             />
             {/* Close button */}
-            <button
-              className="absolute top-4 right-4 text-white text-xl"
-              onClick={closeModal}
-            >
-              Close
-            </button>
+            <div onClick={closeModal} className="absolute top-28 right-6">
+              <IoIosCloseCircle
+                size={35}
+                className="rounded-full bg-pink-500 font-bold"
+              />
+            </div>
           </div>
         </div>
       )}
