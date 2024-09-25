@@ -27,6 +27,32 @@ export const HoverEffect = ({
   let [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
   let [modalImageUrl, setModalImageUrl] = useState<string | null>(null); // Image URL for the modal
   const router = useRouter();
+  let [validImages, setValidImages] = useState<{ [key: string]: boolean }>({}); 
+
+   // Function to validate the image URL
+   const checkImageValidity = (url: string, id: string) => {
+    const img = new window.Image();
+    img.src = url;
+
+    // If image loads, mark it as valid
+    img.onload = () => {
+      setValidImages((prev) => ({ ...prev, [id]: true }));
+    };
+
+    // If image fails to load, mark it as invalid
+    img.onerror = () => {
+      setValidImages((prev) => ({ ...prev, [id]: false }));
+    };
+  };
+
+   // Check all image URLs when the component mounts
+   useEffect(() => {
+    items.forEach((item) => {
+      if (item.image_url) {
+        checkImageValidity(item.image_url, item._id); // Validate image URLs
+      }
+    });
+  }, [items]);
 
   const formatDate = (createdAt: string) => {
     const date = new Date(createdAt);
@@ -148,11 +174,7 @@ export const HoverEffect = ({
 
             <CardDescription>{item.message}</CardDescription>
 
-            {item.image_url && (
-              // <div
-              //   className="relative w-full aspect-[16/10] sm:aspect-[4/3] md:aspect-[5/3] lg:aspect-[3/1]"
-              //   onClick={() => openModal(item.image_url)}
-              // >
+            {validImages[item._id] && (
               <div className="flex justify-center">
                 <Image
                   src={item.image_url}
@@ -160,13 +182,9 @@ export const HoverEffect = ({
                   width={350}
                   height={400}
                   onClick={() => openModal(item.image_url)}
-                  // fill
-                  // className="object-contain border border-red-500"
-                  // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   priority
                 />
               </div>
-              // </div>
             )}
           </Card>
         </div>
@@ -183,7 +201,7 @@ export const HoverEffect = ({
               className="object-contain"
             />
             {/* Close button */}
-            <div onClick={closeModal} className="absolute top-28 right-6">
+            <div onClick={closeModal} className="absolute top-32 right-6">
               <IoIosCloseCircle
                 size={35}
                 className="rounded-full bg-pink-500 font-bold"

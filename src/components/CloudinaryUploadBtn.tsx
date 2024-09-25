@@ -4,6 +4,7 @@ import React from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { CiImageOn } from "react-icons/ci";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
   return (
@@ -11,6 +12,9 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
       uploadPreset="cykoravish"
       options={{
         folder: "chats",
+        multiple: false,
+        resourceType: "image",
+        clientAllowedFormats: ["png", "jpg", "jpeg"],
       }}
       onSuccess={({ event, info }: any) => {
         if (event === "success") {
@@ -20,6 +24,10 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
           );
           setImageURL(transformedUrl);
         }
+      }}
+      onError={(error: any) => {
+        console.error("Upload Error:", error);
+        toast.error("Image upload failed. Please try again.");
       }}
     >
       {({ open }) => {
