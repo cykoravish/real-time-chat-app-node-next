@@ -13,11 +13,12 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
         folder: "chats",
       }}
       onSuccess={({ event, info }: any) => {
-        console.log(event);
-        console.log(info);
         if (event === "success") {
-          // do anything here
-          setImageURL(info?.url);
+          const transformedUrl = info?.secure_url.replace(
+            "/upload/",
+            "/upload/w_350,h_400,c_fill/" // Fixed width and height (300x300)
+          );
+          setImageURL(transformedUrl);
         }
       }}
     >
@@ -42,8 +43,8 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
                 <Image
                   src={imageURL}
                   alt="Uploaded Image"
-                  fill // Use the fill prop instead of layout="fill"
-                  sizes="(max-width: 768px) 100vw, 50vw" // This line added to improve performance
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             )}

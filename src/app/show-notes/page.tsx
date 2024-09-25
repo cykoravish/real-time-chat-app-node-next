@@ -17,7 +17,6 @@ export default function CardHoverEffectDemo() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [page, setPage] = useState(8);
   const [loading, setLoading] = useState(true);
-  console.log("message:", messages);
   useEffect(() => {
     const fetchMessages = async () => {
       try {

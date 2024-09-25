@@ -1,9 +1,12 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Button } from "./moving-border";
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+
+
 
 export const HoverEffect = ({
   items,
@@ -22,6 +25,10 @@ export const HoverEffect = ({
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  let [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
+  let [modalImageUrl, setModalImageUrl] = useState<string | null>(null); // Image URL for the modal
+  const router = useRouter();
+
   const formatDate = (createdAt: string) => {
     const date = new Date(createdAt);
     return date.toLocaleString("en-US", {
@@ -37,6 +44,33 @@ export const HoverEffect = ({
   useEffect(() => {
     setUsername(localStorage.getItem("username"));
   }, []);
+
+  // Open the modal with the clicked image
+  const openModal = (imageUrl: string) => {
+    setIsModalOpen(true);
+    setModalImageUrl(imageUrl);
+    // Push a new state to history for the back button functionality
+    window.history.pushState(null, "", window.location.href);
+  };
+
+  // Close the modal and return to the previous state
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImageUrl(null);
+    router.back(); // Navigate back in the history stack
+  };
+
+  // Close modal when the back button is pressed
+  useEffect(() => {
+    const handlePopState = () => {
+      if (isModalOpen) {
+        closeModal();
+      }
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [isModalOpen]);
+
   return (
     <div
       className={cn(
@@ -44,14 +78,6 @@ export const HoverEffect = ({
         className
       )}
     >
-      {/* <div className="flex justify-center items-center mb-10">
-        <Button
-          borderRadius="1.75rem"
-          className={`bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800`}
-        >
-          Total Notes: {items.length}
-        </Button>
-      </div> */}
       {items.map((item, idx) => (
         <div
           key={item?._id}
@@ -124,21 +150,50 @@ export const HoverEffect = ({
             <CardDescription>{item.message}</CardDescription>
 
             {item.image_url && (
-              <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[70vh] lg:h-[80vh]">
-                {/* Responsive height based on viewport */}
-                <Image
-                  src={item.image_url}
-                  alt="cardImage"
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  priority
-                />
-              </div>
+              // <div
+              //   className="relative w-full aspect-[16/10] sm:aspect-[4/3] md:aspect-[5/3] lg:aspect-[3/1]"
+              //   onClick={() => openModal(item.image_url)}
+              // >
+                <div className="flex justify-center">
+
+                  <Image
+                    src={item.image_url}
+                    alt="cardImage"
+                    width={350}
+                    height={400}
+                    onClick={() => openModal(item.image_url)}
+                    // fill
+                    // className="object-contain border border-red-500"
+                    // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority
+                  />
+                </div>
+              // </div>
             )}
           </Card>
         </div>
       ))}
+
+      {/* Fullscreen Modal */}
+      {isModalOpen && modalImageUrl && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="relative w-full h-full">
+            <Image
+              src={modalImageUrl}
+              alt="FullScreenImage"
+              fill
+              className="object-contain"
+            />
+            {/* Close button */}
+            <button
+              className="absolute top-4 right-4 text-white text-xl"
+              onClick={closeModal}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
