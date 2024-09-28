@@ -3,9 +3,10 @@ import mongoose, { Document, Model, Schema } from "mongoose";
 
 interface IMessage extends Document {
   username: string;
-  message: string;
+  message?: string;
   image_url?: string;
   markedAsRead: boolean;
+  audio_url?: string;
   createdAt: Date;
 }
 
@@ -24,6 +25,9 @@ const MessageSchema: Schema<IMessage> = new mongoose.Schema({
   markedAsRead: {
     type: Boolean,
     default: false,
+  },
+  audio_url: {
+    type: String,
   },
   createdAt: {
     type: Date,

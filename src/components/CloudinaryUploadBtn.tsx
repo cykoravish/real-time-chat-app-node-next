@@ -3,6 +3,7 @@
 import React from "react";
 import { CldUploadWidget } from "next-cloudinary";
 import { CiImageOn } from "react-icons/ci";
+import { FaImage } from "react-icons/fa6";
 import Image from "next/image";
 import toast from "react-hot-toast";
 
@@ -16,30 +17,31 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
         resourceType: "image",
         clientAllowedFormats: ["png", "jpg", "jpeg"],
         sources: ["local", "camera", "unsplash"],
+        showPoweredBy: false,
         styles: {
           palette: {
-            window: "#2e2e2e",       // Dark background for the widget window
-            sourceBg: "#1e1e1e",     // Dark background for source buttons
+            window: "#2e2e2e", // Dark background for the widget window
+            sourceBg: "#1e1e1e", // Dark background for source buttons
             windowBorder: "#8a8a8a", // Border color for the widget window
-            tabIcon: "#ffffff",      // Tab icon color
+            tabIcon: "#ffffff", // Tab icon color
             inactiveTabIcon: "#888", // Color for inactive tabs
-            menuIcons: "#ffffff",    // Icons in the menu
-            link: "#ffffff",         // Link color (e.g., for "Add URL" option)
-            action: "#ff4081",       // Action button color (e.g., the "Upload" button)
-            inProgress: "#00ff00",   // Progress bar color
-            complete: "#00ff00",     // Color when upload is complete
-            error: "#ff0000",        // Error message color
-            textDark: "#ffffff",     // Text color in dark theme
-            textLight: "#8a8a8a",    // Text color for lighter elements
+            menuIcons: "#ffffff", // Icons in the menu
+            link: "#ffffff", // Link color (e.g., for "Add URL" option)
+            action: "#ff4081", // Action button color (e.g., the "Upload" button)
+            inProgress: "#00ff00", // Progress bar color
+            complete: "#00ff00", // Color when upload is complete
+            error: "#ff0000", // Error message color
+            textDark: "#ffffff", // Text color in dark theme
+            textLight: "#8a8a8a", // Text color for lighter elements
           },
           fonts: {
             default: null,
             "'Roboto', sans-serif": {
               url: "https://fonts.googleapis.com/css?family=Roboto",
-              active: true
-            }
-          }
-        }
+              active: true,
+            },
+          },
+        },
       }}
       onSuccess={({ event, info }: any) => {
         if (event === "success") {
@@ -58,11 +60,11 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
       {({ open }) => {
         return (
           <button
-            className="bg-black text-white border border-pink-500 rounded-lg ml-2 w-12 h-12 relative"
+            className="bg-black text-white rounded-lg w-12 h-12 relative"
             onClick={() => open()}
           >
             {imageURL === "" ? (
-              <CiImageOn className="w-full h-full text-center font-bold" />
+              <FaImage size={30} className="text-gray-400 hover:text-pink-400 font-bold" />
             ) : (
               <div
                 style={{
@@ -78,6 +80,7 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
                   alt="Uploaded Image"
                   fill
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  className="rounded-full"
                 />
               </div>
             )}

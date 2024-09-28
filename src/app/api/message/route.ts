@@ -5,16 +5,22 @@ import { NextRequest, NextResponse } from "next/server";
 interface MessageRequestBody {
   username: string;
   message: string;
-  image_url:string;
+  image_url: string;
   markedAsRead: boolean;
+  audio_url: string;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { username, message, image_url, markedAsRead }: MessageRequestBody =
-      await req.json();
+    const {
+      username,
+      message,
+      image_url,
+      markedAsRead,
+      audio_url,
+    }: MessageRequestBody = await req.json();
 
-    if (!username || !message) {
+    if (!username || !message ) {
       return NextResponse.json(
         { error: "message is required" },
         { status: 400 }
@@ -30,6 +36,7 @@ export async function POST(req: NextRequest) {
       message,
       image_url,
       markedAsRead,
+      audio_url,
       createdAt: new Date(), // Date will be automatically stored
     });
 

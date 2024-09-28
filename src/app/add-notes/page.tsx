@@ -5,16 +5,16 @@ import { FloatingNavDemo } from "@/components/Navbar";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { Button } from "@/components/ui/moving-border";
-import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
 import CloudinaryUploadBtn from "@/components/CloudinaryUploadBtn";
-
-const words = `😘RAVISH ❤️ DEEPU😘`;
+// import CloudinaryAudioBtn from "@/components/cloudinaryAudioBtn";
+import AudioRecorder from "@/components/AudioRecorder";
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
   const [imageURL, setImageURL] = useState<string>("");
+  const [audioURL, setAudioURL] = useState<string | null>(null);
+  // console.log("audiourl:", audioURL);
   const [loading, setLoading] = useState(false);
-
   const handleNoteSubmit = async () => {
     if (messageNote.trim() === "") {
       toast.error("baby type something");
@@ -29,6 +29,7 @@ export default function Notes() {
           message: messageNote,
           image_url: imageURL,
           markedAsRead: false,
+          audio_url: audioURL,
         },
         {
           headers: {
@@ -53,8 +54,14 @@ export default function Notes() {
       <FloatingNavDemo />
       <div className="h-screen w-full flex justify-center items-center p-5">
         <div className="grid w-full gap-8">
-          <div className="flex justify-center items-center">
-            <TextGenerateEffect words={words} />
+          <div className="flex justify-center items-center gap-4">
+            <CloudinaryUploadBtn
+              setImageURL={setImageURL}
+              imageURL={imageURL}
+            />
+            <div className="relative">
+              <AudioRecorder audioURL={audioURL} setAudioURL={setAudioURL} />
+            </div>
           </div>
           <Textarea
             placeholder="Type here what's in your mind."
@@ -70,10 +77,6 @@ export default function Notes() {
             >
               {loading ? "loading.." : "Add"}
             </Button>
-            <CloudinaryUploadBtn
-              setImageURL={setImageURL}
-              imageURL={imageURL}
-            />
           </div>
         </div>
       </div>
