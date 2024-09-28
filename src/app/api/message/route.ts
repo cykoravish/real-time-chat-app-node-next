@@ -20,9 +20,9 @@ export async function POST(req: NextRequest) {
       audio_url,
     }: MessageRequestBody = await req.json();
 
-    if (!username || !message ) {
+    if (!username) {
       return NextResponse.json(
-        { error: "message is required" },
+        { error: "invalid user" },
         { status: 400 }
       );
     }
@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
       { status: 201 }
     );
   } catch (error) {
+    console.log(error)
     return NextResponse.json(
       { success: false, error: "Failed to send message" },
       { status: 500 }

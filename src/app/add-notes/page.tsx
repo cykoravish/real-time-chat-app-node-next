@@ -15,6 +15,7 @@ export default function Notes() {
   const [audioURL, setAudioURL] = useState<string>("");
   const [isRecording, setIsRecording] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   const clearAudio = () => {
     setAudioURL("");
@@ -25,8 +26,8 @@ export default function Notes() {
   };
 
   const handleNoteSubmit = async () => {
-    if (messageNote.trim() === "") {
-      toast.error("baby type something");
+    if (messageNote.trim() === "" && imageURL === "" && audioURL === "") {
+      toast.error("baby send something");
       return;
     }
     setLoading(true);
@@ -70,7 +71,14 @@ export default function Notes() {
               imageURL={imageURL}
             />
             <div className="relative">
-              <AudioRecorder audioURL={audioURL} setAudioURL={setAudioURL} isRecording={isRecording} setIsRecording={setIsRecording} />
+              <AudioRecorder
+                audioURL={audioURL}
+                setAudioURL={setAudioURL}
+                isRecording={isRecording}
+                setIsRecording={setIsRecording}
+                isProcessing={isProcessing}
+                setIsProcessing={setIsProcessing}
+              />
             </div>
             <div>
               <MdCleaningServices
@@ -88,9 +96,13 @@ export default function Notes() {
           <div className="flex justify-center items-center">
             <Button
               onClick={handleNoteSubmit}
-              disabled={loading}
+              disabled={loading || isRecording || isProcessing}
               borderRadius="1.75rem"
-              className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800"
+              className={`bg-gray-300 dark:bg-gray-700 text-gray-400 dark:text-gray-500 font-semibold border-neutral-200 dark:border-pink-800 ${
+                loading || isRecording || isProcessing
+                  ? "opacity-50 cursor-not-allowed"
+                  : "bg-white dark:bg-black text-black dark:text-pink-500"
+              }`}
             >
               {loading ? "loading..." : "Add"}
             </Button>

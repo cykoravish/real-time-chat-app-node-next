@@ -10,6 +10,8 @@ interface AudioRecorderProps {
   setAudioURL: (url: string) => void;
   isRecording: boolean;
   setIsRecording: any;
+  isProcessing: any;
+  setIsProcessing: any;
 }
 
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
@@ -17,12 +19,14 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   setAudioURL,
   isRecording,
   setIsRecording,
+  isProcessing,
+  setIsProcessing,
 }) => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   // const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [recordingTime, setRecordingTime] = useState(0);
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
+
   let timerInterval: NodeJS.Timeout;
 
   const handleStartRecording = async () => {
@@ -89,7 +93,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/auto/upload`,
         formData
       );
-      console.log("Audio uploaded successfully:", response.data.secure_url);
+      // console.log("Audio uploaded successfully:", response.data.secure_url);
       setAudioURL(response.data.secure_url);
       toast.success("Audio captured successfully!");
     } catch (error) {
