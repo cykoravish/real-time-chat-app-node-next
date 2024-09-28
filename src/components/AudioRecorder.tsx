@@ -7,22 +7,31 @@ import axios from "axios";
 
 interface AudioRecorderProps {
   audioURL: string | null;
-  setAudioURL: (url: string | null) => void;
+  setAudioURL: (url: string) => void;
+  isRecording: boolean;
+  setIsRecording: any;
 }
 
 const AudioRecorder: React.FC<AudioRecorderProps> = ({
   audioURL,
   setAudioURL,
+  isRecording,
+  setIsRecording,
 }) => {
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const [isRecording, setIsRecording] = useState(false);
+  // const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [recordingTime, setRecordingTime] = useState(0);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
-
   let timerInterval: NodeJS.Timeout;
 
   const handleStartRecording = async () => {
+    if (audioURL) {
+      toast.error(
+        "Baby dobara record krne ke lia pehle previous wali recoding ko clear kro"
+      );
+      return;
+    }
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const mediaRecorder = new MediaRecorder(stream);
     mediaRecorderRef.current = mediaRecorder;
@@ -50,9 +59,15 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
   };
 
   const handleStopRecording = () => {
-    if (!isRecording) {
+    if (!isRecording && !audioURL) {
       toast.error(
         "Baby pehle recording start kro phir dabana is button ko stop krne ke lia😘"
+      );
+      return;
+    }
+    if (audioURL) {
+      toast.error(
+        "Baby recording store ho gyi ha ab send krr do add button se"
       );
       return;
     }
@@ -91,7 +106,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         <button
           onClick={handleStartRecording}
           disabled={isRecording}
-          className="flex items-center gap-2 p-2 text-white rounded-md"
+          className="flex items-center gap-2 p-2 rounded-md"
         >
           <span>
             {isRecording ? (
@@ -103,10 +118,19 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
                 <div className="absolute w-10 h-10 rounded-full border-2 border-pink-500 opacity-75 animate-ping"></div>
               </div>
             ) : (
-              <FaMicrophone
-                size={25}
-                className="text-gray-400 hover:text-pink-400"
-              />
+              <div className="relative">
+                {audioURL && (
+                  <span className="absolute text-pink-500 font-extrabold text-lg -top-4 -right-1 animate-bounce">
+                    1
+                  </span>
+                )}
+                <FaMicrophone
+                  size={25}
+                  className={`hover:text-pink-400 ${
+                    !audioURL ? "text-gray-400" : "text-pink-500"
+                  }`}
+                />
+              </div>
             )}
           </span>
         </button>
@@ -133,7 +157,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         {/* ////////////////////////////// */}
         <button
           onClick={handleStopRecording}
-          className={`flex items-center gap-2 p-2 rounded-full ${
+          className={`hover:text-pink-500 flex items-center gap-2 p-2 rounded-full ${
             isRecording ? "text-pink-500" : "text-gray-400"
           }`}
         >

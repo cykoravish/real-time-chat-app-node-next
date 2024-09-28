@@ -6,15 +6,24 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import { Button } from "@/components/ui/moving-border";
 import CloudinaryUploadBtn from "@/components/CloudinaryUploadBtn";
-// import CloudinaryAudioBtn from "@/components/cloudinaryAudioBtn";
 import AudioRecorder from "@/components/AudioRecorder";
+import { MdCleaningServices } from "react-icons/md";
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
   const [imageURL, setImageURL] = useState<string>("");
-  const [audioURL, setAudioURL] = useState<string | null>(null);
-  // console.log("audiourl:", audioURL);
+  const [audioURL, setAudioURL] = useState<string>("");
+  const [isRecording, setIsRecording] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
+
+  const clearAudio = () => {
+    setAudioURL("");
+    setImageURL("");
+    setMessageNote("");
+    setIsRecording(false);
+    toast.success("ho gya sab clear baby");
+  };
+
   const handleNoteSubmit = async () => {
     if (messageNote.trim() === "") {
       toast.error("baby type something");
@@ -39,6 +48,7 @@ export default function Notes() {
       );
       setMessageNote("");
       setImageURL("");
+      setAudioURL("");
       toast.success("Added Successfully. visit home page to see notes");
     } catch (error: any) {
       setLoading(false);
@@ -60,7 +70,14 @@ export default function Notes() {
               imageURL={imageURL}
             />
             <div className="relative">
-              <AudioRecorder audioURL={audioURL} setAudioURL={setAudioURL} />
+              <AudioRecorder audioURL={audioURL} setAudioURL={setAudioURL} isRecording={isRecording} setIsRecording={setIsRecording} />
+            </div>
+            <div>
+              <MdCleaningServices
+                size={25}
+                className="text-gray-400 hover:text-pink-500"
+                onClick={clearAudio}
+              />
             </div>
           </div>
           <Textarea
@@ -75,7 +92,7 @@ export default function Notes() {
               borderRadius="1.75rem"
               className="bg-white dark:bg-black font-bold text-black dark:text-white border-neutral-200 dark:border-pink-800"
             >
-              {loading ? "loading.." : "Add"}
+              {loading ? "loading..." : "Add"}
             </Button>
           </div>
         </div>

@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect, FormEvent, useRef } from "react";
 import axios from "axios";
 import { FloatingNavDemo } from "@/components/Navbar";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { ImSpinner10 } from "react-icons/im";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 interface Message {
   _id: any;
@@ -11,12 +12,15 @@ interface Message {
   message: any;
   createdAt: any;
   markedAsRead: any;
+  audio_url?: string;
 }
 
 export default function CardHoverEffectDemo() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [page, setPage] = useState(8);
   const [loading, setLoading] = useState(true);
+
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -30,6 +34,8 @@ export default function CardHoverEffectDemo() {
 
     fetchMessages();
   }, [page]);
+
+
 
   const seenMessages = async (_id: any) => {
     try {

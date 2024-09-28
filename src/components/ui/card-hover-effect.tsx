@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoIosCloseCircle } from "react-icons/io";
 import { Button } from "./moving-border";
+import { FaPause, FaPlay } from "react-icons/fa";
 
 export const HoverEffect = ({
   items,
@@ -19,6 +20,7 @@ export const HoverEffect = ({
     image_url?: any;
     createdAt: any;
     markedAsRead: any;
+    audio_url?: any;
   }[];
   markedAsRead: (id: any) => void;
   className?: string;
@@ -28,6 +30,73 @@ export const HoverEffect = ({
   let [modalImageUrl, setModalImageUrl] = useState<string | null>(null); // Image URL for the modal
   const router = useRouter();
   let [validImages, setValidImages] = useState<{ [key: string]: boolean }>({});
+  const [currentPlaying, setCurrentPlaying] = useState<string | null>(null); // To track which audio is playing
+  const audioRef = useRef<HTMLAudioElement | null>(null); // Audio reference for playing/pausing
+  const [progress, setProgress] = useState(0);
+  const [durations, setDurations] = useState(0);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [audioProgress, setAudioProgress] = useState<{ [key: string]: number }>(
+    {}
+  ); // Track progress for each audio
+  //////////////////////////////////////////////////
+
+  // Handle when metadata is loaded
+  const handleLoadedMetadata = () => {
+    if (audioRef.current && audioRef.current.duration) {
+      const durationValue = audioRef.current.duration;
+      if (!isNaN(durationValue) && isFinite(durationValue)) {
+        setDurations(durationValue); // Only set valid durations
+      }
+    }
+  };
+
+  // Update progress as audio plays
+  const handleProgressUpdate = () => {
+    if (audioRef.current && currentPlaying) {
+      const currentTime = audioRef.current.currentTime;
+      const duration = audioRef.current.duration;
+      const progressPercentage = (currentTime / duration) * 100;
+      setAudioProgress((prev) => ({
+        ...prev,
+        [currentPlaying]: progressPercentage,
+      })); // Update progress for current audio
+    }
+  };
+  //////////////////////////////////////////
+  useEffect(() => {
+    const updateProgress = () => {
+      if (audioRef.current) {
+        const currentTime = audioRef.current.currentTime;
+        const duration = audioRef.current.duration;
+        const progressPercentage = (currentTime / duration) * 100;
+        setProgress(progressPercentage || 0);
+      }
+    };
+
+    // Add event listener to update progress
+    audioRef.current?.addEventListener("timeupdate", updateProgress);
+
+    // Cleanup event listener when component unmounts or audio changes
+    return () => {
+      audioRef.current?.removeEventListener("timeupdate", updateProgress);
+    };
+  }, [currentPlaying]);
+
+  const handlePlayPause = (audio_url: string) => {
+    if (currentPlaying === audio_url) {
+      audioRef.current?.pause();
+      setCurrentPlaying(null);
+      setAudioProgress((prev) => ({ ...prev, [audio_url]: 0 })); // Reset progress when paused
+    } else {
+      if (audioRef.current) {
+        audioRef.current.src = audio_url.replace(".webm", ".mp3"); // Set audio source
+        audioRef.current.play(); // Play audio
+        setCurrentPlaying(audio_url);
+      }
+    }
+  };
+
+  ///////////////////////////////////////////////
 
   // Function to validate the image URL
   const checkImageValidity = (url: string, id: string) => {
@@ -176,6 +245,48 @@ export const HoverEffect = ({
             )}
 
             <CardDescription>{item.message}</CardDescription>
+
+            {/* //////////////////////////////////////////////////////////// */}
+
+            {item.audio_url && (
+              <div className="my-4 flex items-center space-x-4">
+                <button
+                  onClick={() => handlePlayPause(item.audio_url)}
+                  className={`text-white bg-pink-500 p-4 rounded-full hover:bg-pink-600 transition-all shadow-lg transform ${
+                    currentPlaying === item.audio_url
+                      ? "scale-105"
+                      : "scale-100"
+                  }`}
+                >
+                  {currentPlaying === item.audio_url ? (
+                    <FaPause size={20} className="animate-pulse" />
+                  ) : (
+                    <FaPlay size={20} />
+                  )}
+                </button>
+                <div className="w-full h-1 bg-gray-300 rounded-full overflow-hidden relative">
+                  {/* Progress bar */}
+                  <div
+                    className="absolute left-0 top-0 h-full bg-pink-500"
+                    style={{ width: `${audioProgress[item.audio_url] || 0}%` }} // Update progress only for the specific audio
+                  ></div>
+                </div>
+                <audio
+                  ref={audioRef}
+                  onLoadedMetadata={handleLoadedMetadata} // Get duration when metadata is loaded
+                  onTimeUpdate={handleProgressUpdate} // Update progress as the audio plays
+                  onEnded={() => {
+                    setCurrentPlaying(null);
+                    setAudioProgress((prev) => ({
+                      ...prev,
+                      [item.audio_url]: 0,
+                    })); // Reset progress when audio ends
+                  }}
+                />
+              </div>
+            )}
+
+            {/* //////////////////////////////////////////////////////////// */}
 
             {validImages[item._id] && (
               <div className="flex justify-center">
