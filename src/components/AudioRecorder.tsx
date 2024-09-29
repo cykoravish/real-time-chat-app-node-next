@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useRef } from "react";
-import toast from "react-hot-toast";
+import { showToast } from "./LoveToast";
 import { IoStopCircleOutline } from "react-icons/io5";
 import { FaMicrophone } from "react-icons/fa";
 import axios from "axios";
@@ -31,8 +31,8 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
 
   const handleStartRecording = async () => {
     if (audioURL) {
-      toast.error(
-        "Baby dobara record krne ke lia pehle previous wali recoding ko clear kro"
+      showToast(
+        "Baby dobara record krne ke lia pehle previous wali recoding ko clear kro","error"
       );
       return;
     }
@@ -64,14 +64,14 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
 
   const handleStopRecording = () => {
     if (!isRecording && !audioURL) {
-      toast.error(
-        "Baby pehle recording start kro phir dabana is button ko stop krne ke lia😘"
+      showToast(
+        "Baby pehle recording start kro phir dabana is button ko stop krne ke lia😘","error"
       );
       return;
     }
     if (audioURL) {
-      toast.error(
-        "Baby recording store ho gyi ha ab send krr do add button se"
+      showToast(
+        "Baby recording store ho gyi ha ab send krr do add button se","error"
       );
       return;
     }
@@ -95,10 +95,10 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
       );
       // console.log("Audio uploaded successfully:", response.data.secure_url);
       setAudioURL(response.data.secure_url);
-      toast.success("Audio captured successfully!");
+      showToast("Audio captured successfully!", "success");
     } catch (error) {
       console.error("Upload Error:", error);
-      toast.error("Audio upload failed. Please try again.");
+      showToast("Audio upload failed. Please try again.","error");
     } finally {
       setIsProcessing(false);
     }
