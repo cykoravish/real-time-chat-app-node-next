@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { FloatingNavDemo } from "@/components/Navbar";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
@@ -19,7 +19,6 @@ export default function CardHoverEffectDemo() {
   const [page, setPage] = useState(8);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -33,8 +32,6 @@ export default function CardHoverEffectDemo() {
 
     fetchMessages();
   }, [page]);
-
-
 
   const seenMessages = async (_id: any) => {
     try {

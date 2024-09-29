@@ -5,7 +5,6 @@ import { TiTick } from "react-icons/ti";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoIosCloseCircle } from "react-icons/io";
-import { Button } from "./moving-border";
 import { FaPause, FaPlay } from "react-icons/fa";
 
 export const HoverEffect = ({
