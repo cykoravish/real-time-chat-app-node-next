@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { FloatingNavDemo } from "@/components/Navbar";
-import toast from "react-hot-toast";
+import { showToast } from "@/components/LoveToast";
 import axios from "axios";
 import { Button } from "@/components/ui/moving-border";
 import CloudinaryUploadBtn from "@/components/CloudinaryUploadBtn";
@@ -22,12 +22,12 @@ export default function Notes() {
     setImageURL("");
     setMessageNote("");
     setIsRecording(false);
-    toast.success("ho gya sab clear baby");
+    showToast("ho gya sab clear baby", "success");
   };
 
   const handleNoteSubmit = async () => {
     if (messageNote.trim() === "" && imageURL === "" && audioURL === "") {
-      toast.error("baby send something");
+      showToast("baby send something","error");
       return;
     }
     setLoading(true);
@@ -50,10 +50,10 @@ export default function Notes() {
       setMessageNote("");
       setImageURL("");
       setAudioURL("");
-      toast.success("Added Successfully. visit home page to see notes");
+      showToast("Added Successfully. visit home page to see notes","success");
     } catch (error: any) {
       setLoading(false);
-      toast.error(error.response.data.error);
+      showToast(error.response.data.error,"error");
       console.log("error in api :", error.response.data.error);
     } finally {
       setLoading(false);

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { toast } from "react-hot-toast";
+import { showToast } from "@/components/LoveToast";
 
 import { useRouter } from "next/navigation";
 export default function SignupFormDemo() {
@@ -30,10 +30,10 @@ export default function SignupFormDemo() {
 
       router.push("/show-notes");
       setPassword("");
-      toast.success("❤️successfully Logged In❤️");
+      showToast("❤️successfully Logged In❤️", "success");
     } else {
       setPassword("");
-      toast.error("Incorrect Password");
+      showToast("Incorrect Password", "error");
     }
   };
   return (
