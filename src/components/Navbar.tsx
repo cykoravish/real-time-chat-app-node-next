@@ -4,7 +4,7 @@ import { FloatingNav } from "./ui/floating-navbar";
 export function FloatingNavDemo() {
   const navItems = [
     {
-      name: "Home",
+      name: "Notes",
       link: "/show-notes",
     },
     {
@@ -12,7 +12,7 @@ export function FloatingNavDemo() {
       link: "/chats",
     },
     {
-      name: "Notes",
+      name: "Add",
       link: "/add-notes",
     },
   ];

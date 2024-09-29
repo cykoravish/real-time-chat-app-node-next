@@ -4,7 +4,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { FloatingNavDemo } from "@/components/Navbar";
 import { showToast } from "@/components/LoveToast";
 import axios from "axios";
-import { Button } from "@/components/ui/moving-border";
 import CloudinaryUploadBtn from "@/components/CloudinaryUploadBtn";
 import AudioRecorder from "@/components/AudioRecorder";
 import { MdCleaningServices } from "react-icons/md";
@@ -27,7 +26,7 @@ export default function Notes() {
 
   const handleNoteSubmit = async () => {
     if (messageNote.trim() === "" && imageURL === "" && audioURL === "") {
-      showToast("baby send something","error");
+      showToast("baby send something", "error");
       return;
     }
     setLoading(true);
@@ -50,10 +49,10 @@ export default function Notes() {
       setMessageNote("");
       setImageURL("");
       setAudioURL("");
-      showToast("Added Successfully. visit home page to see notes","success");
+      showToast("Added Successfully. visit home page to see notes", "success");
     } catch (error: any) {
       setLoading(false);
-      showToast(error.response.data.error,"error");
+      showToast(error.response.data.error, "error");
       console.log("error in api :", error.response.data.error);
     } finally {
       setLoading(false);
@@ -89,23 +88,23 @@ export default function Notes() {
             </div>
           </div>
           <Textarea
-            placeholder="Type here what's in your mind."
+            placeholder="Baby likh do kuch man ki baat yaha 😘"
             value={messageNote}
             onChange={(e) => setMessageNote(e.target.value)}
           />
           <div className="flex justify-center items-center">
-            <Button
+            <button
               onClick={handleNoteSubmit}
-              disabled={loading || isRecording || isProcessing}
-              borderRadius="1.75rem"
-              className={`bg-gray-300 dark:bg-gray-700 text-gray-400 dark:text-gray-500 font-semibold border-neutral-200 dark:border-pink-800 ${
+              className={`relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 ${
                 loading || isRecording || isProcessing
-                  ? "opacity-50 cursor-not-allowed"
+                  ? "opacity-50 cursor-not-allowed bg-gray-400"
                   : "bg-white dark:bg-black text-black dark:text-pink-500"
               }`}
             >
-              {loading ? "loading..." : "Add"}
-            </Button>
+              <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                {loading ? "loading..." : "Submit"}
+              </span>
+            </button>
           </div>
         </div>
       </div>

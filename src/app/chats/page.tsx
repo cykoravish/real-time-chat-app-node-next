@@ -140,9 +140,6 @@ export default function Chat() {
     setMessages([]);
   };
 
-  // const refreshPage = () => {
-  //   window.location.reload();
-  // };
 
   useEffect(() => {
     const chatEndRef = document.getElementById("chat-end");

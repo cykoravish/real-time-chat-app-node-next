@@ -1,10 +1,9 @@
 "use client";
-import { useState, useEffect, FormEvent, useRef } from "react";
+import { useState, useEffect} from "react";
 import axios from "axios";
 import { FloatingNavDemo } from "@/components/Navbar";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { ImSpinner10 } from "react-icons/im";
-import { FaPlay, FaPause } from "react-icons/fa";
 
 interface Message {
   _id: any;
