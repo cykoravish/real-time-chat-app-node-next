@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { showToast } from "@/components/LoveToast";
 import ConfettiComponent from "@/components/ConfettiComponent";
 import { useRouter } from "next/navigation";
+import Sidebar from "@/components/Sidebar";
 export default function SignupFormDemo() {
   const [password, setPassword] = useState<string>("");
   const router = useRouter();

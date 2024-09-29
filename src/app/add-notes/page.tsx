@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
-import { FloatingNavDemo } from "@/components/Navbar";
 import { showToast } from "@/components/LoveToast";
 import axios from "axios";
 import CloudinaryUploadBtn from "@/components/CloudinaryUploadBtn";
 import AudioRecorder from "@/components/AudioRecorder";
 import { MdCleaningServices } from "react-icons/md";
+import Sidebar from "@/components/Sidebar";
+
 
 export default function Notes() {
   const [messageNote, setMessageNote] = useState<string>("");
@@ -61,8 +62,8 @@ export default function Notes() {
 
   return (
     <>
-      <FloatingNavDemo />
-      <div className="h-screen w-full flex justify-center items-center p-5">
+      <Sidebar />
+      <div className="border-t border-gray-700 h-screen w-full flex justify-center items-center p-5">
         <div className="grid w-full gap-8">
           <div className="flex justify-center items-center gap-4">
             <CloudinaryUploadBtn

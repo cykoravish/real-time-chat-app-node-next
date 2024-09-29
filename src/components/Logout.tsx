@@ -1,5 +1,5 @@
 import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
+import { showToast } from "./LoveToast";
 
 const LogoutButton = () => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const LogoutButton = () => {
     // Redirect to the home page or login page
     window.location.reload();
     router.push("/");
-    toast.success("Logged Out");
+    showToast("Logged Out","success");
   };
 
   const removeCookie = (name: string) => {
@@ -25,7 +25,7 @@ const LogoutButton = () => {
     <div className="">
       <div
         onClick={handleLogout}
-        className="text-[16px] border-b cursor-pointer border-blue-400 shadow-[0_4px_4px_rgba(0,0,255,0.5)]"
+        className="text-[16px] cursor-pointer"
       >
         Logout
       </div>
