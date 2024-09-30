@@ -4,17 +4,19 @@ import React, { useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { HiMenuAlt3 } from "react-icons/hi";
 import LogoutButton from "./Logout";
+import { usePathname } from "next/navigation";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const pathname = usePathname();
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
-
+  // Check if the current path is the home page
+  if (pathname === "/") return null; 
   return (
     <>
-      <nav className="bg-black relative">
+      <nav className="bg-black absolute w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
@@ -24,29 +26,44 @@ const Sidebar = () => {
             </div>
             <div className="hidden md:flex md:ml-4">
               <Link
-                href="/"
-                className="text-white hover:bg-pink-600 hover:text-white rounded-lg p-2 transition duration-200"
+                href="/show-notes"
+                className={`${pathname === "/show-notes" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
               >
                 Notes
               </Link>
               <Link
-                href="/"
-                className="text-white hover:bg-pink-600 hover:text-white rounded-lg p-2 transition duration-200"
+                href="/chats"
+                className={`${pathname === "/chats" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
               >
                 Chats
               </Link>
               <Link
-                href="/"
-                className="text-white hover:bg-pink-600 hover:text-white rounded-lg p-2 transition duration-200"
+                href="/add-notes"
+                className={`${pathname === "/add-notes" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
               >
                 Add
               </Link>
               <Link
-                href="/"
-                className="text-white hover:bg-pink-600 hover:text-white rounded-lg p-2 transition duration-200"
+                href="/physics"
+                className={`${pathname === "/physics" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
               >
-                Logout
+                Physics
               </Link>
+              <Link
+                href="/chemistry"
+                className={`${pathname === "/chemistry" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+              >
+                Chemistry
+              </Link>
+              <Link
+                href="/bio"
+                className={`${pathname === "/bio" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+              >
+                Bio
+              </Link>
+              <div className="">
+                <LogoutButton />
+              </div>
             </div>
             <div className="md:hidden">
               <button
@@ -66,7 +83,7 @@ const Sidebar = () => {
             isOpen ? "translate-y-0" : "-translate-y-full"
           } z-50`}
         >
-          <div className="flex flex-col h-full px-4 pt-5 pb-3 space-y-1 text-center">
+          <div className="flex flex-col h-full px-4 pt-5 pb-3 space-y-4 text-center">
             <div className="flex justify-between items-center">
               <Link href="/" className="text-white text-lg font-bold">
                 𝖎❤️𝕯𝖊𝖊𝖕𝖚
@@ -81,32 +98,73 @@ const Sidebar = () => {
             </div>
             <Link
               href="/show-notes"
-              className="text-white font-mono font-bold block hover:bg-pink-700 rounded-lg p-2 transition duration-200 text-lg"
+              className={`${
+                pathname === "/show-notes"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
               onClick={toggleNavbar}
             >
               Notes
             </Link>
             <Link
               href="/chats"
-              className="text-white font-mono font-bold block hover:bg-pink-700 rounded-lg p-2 transition duration-200 text-lg"
+              className={`${
+                pathname === "/chats"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
               onClick={toggleNavbar}
             >
               Chats
             </Link>
             <Link
               href="/add-notes"
-              className="text-white font-mono font-bold block hover:bg-pink-700 rounded-lg p-2 transition duration-200 text-lg"
+              className={`${
+                pathname === "/add-notes"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              Add
+              Send sweet Notes
             </Link>
             <Link
-              href="/"
-              className="text-white font-mono font-bold bg-red-600 hover:bg-red-700 rounded-full p-2 transition duration-200 text-lg w-full"
+              href="/physics"
+              className={`${
+                pathname === "/physics"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              <LogoutButton />
+              Physics
             </Link>
+            <Link
+              href="/chemistry"
+              className={`${
+                pathname === "/chemistry"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              Chemistry
+            </Link>
+            <Link
+              href="/bio"
+              className={`${
+                pathname === "/bio"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              Bio
+            </Link>
+            <div className="">
+              <LogoutButton />
+            </div>
           </div>
         </div>
       </nav>

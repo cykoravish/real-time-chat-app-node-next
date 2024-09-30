@@ -20,5 +20,5 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/", "/add-notes", "/chats", "/show-notes"],
+  matcher: ["/", "/add-notes", "/chats", "/show-notes", "/chemistry", "/physics", "/bio"],
 };

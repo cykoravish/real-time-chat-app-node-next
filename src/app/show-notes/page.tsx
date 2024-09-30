@@ -3,8 +3,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { ImSpinner10 } from "react-icons/im";
-import Sidebar from "@/components/Sidebar";
-
 
 interface Message {
   _id: any;
@@ -64,7 +62,6 @@ export default function CardHoverEffectDemo() {
 
   return (
     <>
-      <Sidebar />
       <div className="border-b border-gray-700"></div>
       <div className="max-w-5xl mx-auto px-8 mt-10 relative">
         <HoverEffect items={messages} markedAsRead={seenMessages} />

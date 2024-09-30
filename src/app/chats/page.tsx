@@ -8,7 +8,6 @@ import { HiOutlinePhotograph } from "react-icons/hi";
 import { IoSend } from "react-icons/io5";
 import { IoMdCloseCircle } from "react-icons/io";
 import { FormEvent } from "react";
-import Sidebar from "@/components/Sidebar";
 
 // Example avatars for users
 const avatars: any = {
@@ -187,7 +186,6 @@ export default function Chat() {
     <div className="min-h-screen flex flex-col dark:bg-black text-gray-200">
       <div className="overflow-hidden">
         <div className="dark:bg-black text-center border-b border-gray-700 shadow-lg">
-          <Sidebar />
           <div className="flex items-center justify-center px-4">
           </div>
         </div>
