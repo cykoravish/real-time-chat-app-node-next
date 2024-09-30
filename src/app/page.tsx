@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { showToast } from "@/components/LoveToast";
 import ConfettiComponent from "@/components/ConfettiComponent";
 import { useRouter } from "next/navigation";
-import Sidebar from "@/components/Sidebar";
+
 export default function SignupFormDemo() {
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
@@ -40,7 +40,7 @@ export default function SignupFormDemo() {
   return (
     <>
       <div className="flex justify-center">
-        <div className="max-w-md w-full mx-2 rounded-lg md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-pink-500">
+        <div className="max-w-md w-full mx-2 rounded-xl md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-pink-500">
           <h2 className="font-bold text-xl text-neutral-800 dark:text-pink-500">
             Welcome to Sweet Notes
           </h2>
@@ -55,7 +55,7 @@ export default function SignupFormDemo() {
                 <Input
                   id="password"
                   placeholder="password"
-                  type="text"
+                  type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />

@@ -20,5 +20,12 @@ export function middleware(request: NextRequest) {
 
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/", "/add-notes", "/chats", "/show-notes", "/chemistry", "/physics", "/bio"],
+  matcher: [
+    "/",
+    "/add-notes",
+    "/chats",
+    "/show-notes",
+    "/todo-list",
+    "/ask-question",
+  ],
 };

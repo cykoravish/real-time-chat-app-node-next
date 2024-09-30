@@ -13,7 +13,7 @@ const Sidebar = () => {
     setIsOpen(!isOpen);
   };
   // Check if the current path is the home page
-  if (pathname === "/") return null; 
+  if (pathname === "/") return null;
   return (
     <>
       <nav className="bg-black absolute w-full">
@@ -27,40 +27,45 @@ const Sidebar = () => {
             <div className="hidden md:flex md:ml-4">
               <Link
                 href="/show-notes"
-                className={`${pathname === "/show-notes" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+                className={`${
+                  pathname === "/show-notes" ? "text-pink-500" : "text-white"
+                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Notes
               </Link>
               <Link
                 href="/chats"
-                className={`${pathname === "/chats" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+                className={`${
+                  pathname === "/chats" ? "text-pink-500" : "text-white"
+                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Chats
               </Link>
               <Link
                 href="/add-notes"
-                className={`${pathname === "/add-notes" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+                className={`${
+                  pathname === "/add-notes" ? "text-pink-500" : "text-white"
+                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Add
               </Link>
               <Link
-                href="/physics"
-                className={`${pathname === "/physics" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+                href="/ask-question"
+                className={`${
+                  pathname === "/ask-question" ? "text-pink-500" : "text-white"
+                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
-                Physics
+                Ask Questions
               </Link>
               <Link
-                href="/chemistry"
-                className={`${pathname === "/chemistry" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
+                href="/todo-list"
+                className={`${
+                  pathname === "/todo-list" ? "text-pink-500" : "text-white"
+                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
-                Chemistry
+                Todo List
               </Link>
-              <Link
-                href="/bio"
-                className={`${pathname === "/bio" ? "text-pink-500" : "text-white"} hover:text-pink-500 p-2 transition duration-200 font-bold font-mono text-xl`}
-              >
-                Bio
-              </Link>
+
               <div className="">
                 <LogoutButton />
               </div>
@@ -130,37 +135,26 @@ const Sidebar = () => {
               Send sweet Notes
             </Link>
             <Link
-              href="/physics"
+              href="/ask-question"
               className={`${
-                pathname === "/physics"
+                pathname === "/ask-question"
                   ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
                   : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              Physics
+              Ask Questions
             </Link>
             <Link
-              href="/chemistry"
+              href="/todo-list"
               className={`${
-                pathname === "/chemistry"
+                pathname === "/todo-list"
                   ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
                   : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              Chemistry
-            </Link>
-            <Link
-              href="/bio"
-              className={`${
-                pathname === "/bio"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              Bio
+              TodoList
             </Link>
             <div className="">
               <LogoutButton />
