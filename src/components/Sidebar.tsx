@@ -21,7 +21,7 @@ const Sidebar = () => {
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
               <Link href="/" className="text-white text-lg font-bold">
-                𝖎❤️𝕯𝖊𝖊𝖕𝖚
+                𝕯𝖊𝖊𝖕𝖚
               </Link>
             </div>
             <div className="hidden md:flex md:ml-4">
@@ -91,7 +91,7 @@ const Sidebar = () => {
           <div className="flex flex-col h-full px-4 pt-5 pb-3 space-y-4 text-center">
             <div className="flex justify-between items-center">
               <Link href="/" className="text-white text-lg font-bold">
-                𝖎❤️𝕯𝖊𝖊𝖕𝖚
+                𝕯𝖊𝖊𝖕𝖚
               </Link>
               <button
                 className="text-white"
