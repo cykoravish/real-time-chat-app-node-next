@@ -16,7 +16,7 @@ const Sidebar = () => {
   if (pathname === "/") return null;
   return (
     <>
-      <nav className="bg-black absolute w-full">
+      <nav className="bg-blue-500 absolute w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex-shrink-0">
@@ -28,48 +28,48 @@ const Sidebar = () => {
               <Link
                 href="/show-notes"
                 className={`${
-                  pathname === "/show-notes" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+                  pathname === "/show-notes" ? "text-blue-500" : "text-white"
+                } hover:text-blue-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Notes
               </Link>
               <Link
                 href="/chats"
                 className={`${
-                  pathname === "/chats" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+                  pathname === "/chats" ? "text-blue-500" : "text-white"
+                } hover:text-blue-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Chats
               </Link>
               <Link
                 href="/add-notes"
                 className={`${
-                  pathname === "/add-notes" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+                  pathname === "/add-notes" ? "text-blue-500" : "text-white"
+                } hover:text-blue-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Add
               </Link>
               <Link
                 href="/quiz"
                 className={`${
-                  pathname === "/quiz" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+                  pathname === "/quiz" ? "text-blue-500" : "text-white"
+                } hover:text-blue-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Quiz
               </Link>
               <Link
                 href="/todo-list"
                 className={`${
-                  pathname === "/todo-list" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+                  pathname === "/todo-list" ? "text-blue-500" : "text-white"
+                } hover:text-blue-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Todo List
               </Link>
               <Link
                 href="/study-notes"
                 className={`${
-                  pathname === "/study-notes" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+                  pathname === "/study-notes" ? "text-blue-500" : "text-white"
+                } hover:text-blue-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
                 Study Notes
               </Link>
@@ -113,8 +113,8 @@ const Sidebar = () => {
               href="/quiz"
               className={`${
                 pathname === "/quiz"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
@@ -124,8 +124,8 @@ const Sidebar = () => {
               href="/study-notes"
               className={`${
                 pathname === "/study-notes"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
@@ -135,8 +135,8 @@ const Sidebar = () => {
               href="/todo-list"
               className={`${
                 pathname === "/todo-list"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
@@ -146,8 +146,8 @@ const Sidebar = () => {
               href="/show-notes"
               className={`${
                 pathname === "/show-notes"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
@@ -157,8 +157,8 @@ const Sidebar = () => {
               href="/add-notes"
               className={`${
                 pathname === "/add-notes"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
@@ -168,8 +168,8 @@ const Sidebar = () => {
               href="/chats"
               className={`${
                 pathname === "/chats"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >

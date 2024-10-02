@@ -182,7 +182,7 @@ export default function Page() {
                   {qna.question}
                 </p>
                 <p className="text-lg text-gray-400 mt-2">
-                  <span className="text-blue-500">Ans. </span>
+                  <span className="text-blue-500 font-bold">Ans. </span>
                   {qna.answer}
                 </p>
               </div>

@@ -117,21 +117,21 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
               <div className="relative flex justify-center items-center w-10 h-10">
                 <FaMicrophone
                   size={25}
-                  className="text-pink-500 hover:text-pink-400"
+                  className="text-blue-500 hover:text-blue-400"
                 />
-                <div className="absolute w-10 h-10 rounded-full border-2 border-pink-500 opacity-75 animate-ping"></div>
+                <div className="absolute w-10 h-10 rounded-full border-2 border-blue-500 opacity-75 animate-ping"></div>
               </div>
             ) : (
               <div className="relative">
                 {audioURL && (
-                  <span className="absolute text-pink-500 font-extrabold text-lg -top-4 -right-1 animate-bounce">
+                  <span className="absolute text-blue-500 font-extrabold text-lg -top-4 -right-1 animate-bounce">
                     1
                   </span>
                 )}
                 <FaMicrophone
                   size={25}
-                  className={`hover:text-pink-400 ${
-                    !audioURL ? "text-gray-400" : "text-pink-500"
+                  className={`hover:text-blue-400 ${
+                    !audioURL ? "text-gray-400" : "text-blue-500"
                   }`}
                 />
               </div>
@@ -141,7 +141,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         {/* Display Timer */}
 
         {isRecording && (
-          <span className="absolute text-lg font-semibold text-pink-500 -top-10 left-8 transform -translate-x-1/2">
+          <span className="absolute text-lg font-semibold text-blue-500 -top-10 left-8 transform -translate-x-1/2">
             {`${Math.floor(recordingTime / 60)
               .toString()
               .padStart(2, "0")}:${(recordingTime % 60)
@@ -152,17 +152,17 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
         {/* ///////////////////////////// */}
         {isProcessing && (
           <div className="absolute -top-10 left-8 transform -translate-x-1/2 flex space-x-2">
-            <span className="block w-2 h-2 bg-pink-500 rounded-full animate-bounce"></span>
-            <span className="block w-2 h-2 bg-pink-500 rounded-full animate-bounce delay-150"></span>
-            <span className="block w-2 h-2 bg-pink-500 rounded-full animate-bounce delay-300"></span>
+            <span className="block w-2 h-2 bg-blue-500 rounded-full animate-bounce"></span>
+            <span className="block w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-150"></span>
+            <span className="block w-2 h-2 bg-blue-500 rounded-full animate-bounce delay-300"></span>
           </div>
         )}
 
         {/* ////////////////////////////// */}
         <button
           onClick={handleStopRecording}
-          className={`hover:text-pink-500 flex items-center gap-2 p-2 rounded-full ${
-            isRecording ? "text-pink-500" : "text-gray-400"
+          className={`hover:text-blue-500 flex items-center gap-2 p-2 rounded-full ${
+            isRecording ? "text-blue-500" : "text-gray-400"
           }`}
         >
           <IoStopCircleOutline size={35} />

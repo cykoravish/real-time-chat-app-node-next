@@ -2,7 +2,6 @@
 
 import React from "react";
 import { CldUploadWidget } from "next-cloudinary";
-import { CiImageOn } from "react-icons/ci";
 import { FaImage } from "react-icons/fa6";
 import Image from "next/image";
 import toast from "react-hot-toast";
@@ -60,11 +59,11 @@ export default function CloudinaryUploadBtn({ setImageURL, imageURL }: any) {
       {({ open }) => {
         return (
           <button
-            className="bg-black text-white rounded-lg w-12 h-12 relative"
+            className="text-white rounded-lg w-12 h-12 relative"
             onClick={() => open()}
           >
             {imageURL === "" ? (
-              <FaImage size={30} className="text-gray-400 hover:text-pink-400 font-bold" />
+              <FaImage size={30} className="text-gray-400 hover:text-blue-500 font-bold" />
             ) : (
               <div
                 style={{
