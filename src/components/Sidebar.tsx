@@ -121,17 +121,6 @@ const Sidebar = () => {
               Quiz
             </Link>
             <Link
-              href="/todo-list"
-              className={`${
-                pathname === "/todo-list"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              TodoList
-            </Link>
-            <Link
               href="/study-notes"
               className={`${
                 pathname === "/study-notes"
@@ -141,6 +130,17 @@ const Sidebar = () => {
               onClick={toggleNavbar}
             >
               Study Notes
+            </Link>
+            <Link
+              href="/todo-list"
+              className={`${
+                pathname === "/todo-list"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              TodoList
             </Link>
             <Link
               href="/show-notes"
