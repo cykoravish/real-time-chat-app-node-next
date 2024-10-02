@@ -172,16 +172,19 @@ export default function Page() {
     <div className="p-8 bg-gray-900 text-white space-y-12 pt-28">
       {questionsAndAnswers.map((section) => (
         <div key={section.subject}>
-          <h2 className="text-3xl font-bold text-blue-400 mb-6 border-b border-blue-600">
+          <h2 className="text-3xl font-bold text-blue-500 mb-6 border-b border-blue-600">
             {section.subject} Questions
           </h2>
           <div className="space-y-6">
             {section.questions.map((qna, index) => (
               <div key={index}>
-                <p className="text-xl font-semibold text-gray-100">
+                <p className="text-xl font-semibold text-blue-500">
                   {qna.question}
                 </p>
-                <p className="text-lg text-gray-400 mt-2">{qna.answer}</p>
+                <p className="text-lg text-gray-400 mt-2">
+                  <span className="text-blue-500">Ans. </span>
+                  {qna.answer}
+                </p>
               </div>
             ))}
           </div>
