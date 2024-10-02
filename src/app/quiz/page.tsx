@@ -175,7 +175,7 @@ const Page = () => {
         ))}
         <button
           onClick={handleSubmit}
-          className={`mt-8 px-4 py-2 bg-blue-500 text-white rounded ${
+          className={`text-center mt-5 mb-10 px-4 py-2 bg-blue-500 text-white rounded ${
             loadingTwo && "bg-gray-400 cursor-not-allowed"
           }`}
           disabled={loadingTwo}

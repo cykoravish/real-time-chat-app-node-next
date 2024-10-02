@@ -97,7 +97,7 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ searchParams }) => {
           href="/"
           className="text-center flex justify-center mt-10"
         >
-          <button>GO TO Home</button>
+          <button className="border border-blue-500 p-2 rounded-md font-semibold hover:bg-blue-500 hover:text-white">GO TO Home</button>
         </Link>
       </div>
     </div>
