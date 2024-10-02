@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import { ImSpinner10 } from "react-icons/im";
+import { showToast } from "@/components/LoveToast";
 
 interface Message {
   _id: any;
@@ -44,6 +45,7 @@ export default function CardHoverEffectDemo() {
     try {
       const res = await axios.post(`/api/deleteMessage/${id}`);
       window.location.reload();
+      showToast("note deleted", "success");
     } catch (error) {
       console.error("Failed to seen messages", error);
     }

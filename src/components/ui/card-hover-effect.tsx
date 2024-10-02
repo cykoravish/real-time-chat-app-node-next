@@ -81,6 +81,7 @@ export const HoverEffect = ({
 
     // Cleanup event listener when component unmounts or audio changes
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       audioRef.current?.removeEventListener("timeupdate", updateProgress);
     };
   }, [currentPlaying]);
@@ -166,6 +167,7 @@ export const HoverEffect = ({
     };
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isModalOpen]);
 
   if (items.length === 0) {
