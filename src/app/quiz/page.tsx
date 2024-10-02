@@ -1,14 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import questionsData from "@/data/questions";
 import { useRouter } from "next/navigation";
-// import axios from "axios";
 import { showToast } from "@/components/LoveToast";
-import { FaSpinner } from "react-icons/fa";
-import ShiftingCountdown from "@/components/Timer";
-import { LuLoader2 } from "react-icons/lu";
 
 const Page = () => {
   const [selectedOptions, setSelectedOptions] = useState<any>(null);

@@ -27,6 +27,7 @@ export const config = {
     "/show-notes",
     "/todo-list",
     "/quiz",
-    "/results"
+    "/results",
+    "/study-notes"
   ],
 };

@@ -65,6 +65,14 @@ const Sidebar = () => {
               >
                 Todo List
               </Link>
+              <Link
+                href="/study-notes"
+                className={`${
+                  pathname === "/study-notes" ? "text-pink-500" : "text-white"
+                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
+              >
+                Study Notes
+              </Link>
 
               <div className="">
                 <LogoutButton />
@@ -122,6 +130,17 @@ const Sidebar = () => {
               onClick={toggleNavbar}
             >
               TodoList
+            </Link>
+            <Link
+              href="/study-notes"
+              className={`${
+                pathname === "/study-notes"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              Study Notes
             </Link>
             <Link
               href="/show-notes"
