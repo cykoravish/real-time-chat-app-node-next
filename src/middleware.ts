@@ -26,6 +26,6 @@ export const config = {
     "/chats",
     "/show-notes",
     "/todo-list",
-    "/ask-question",
+    "/quiz",
   ],
 };

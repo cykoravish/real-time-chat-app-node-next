@@ -50,12 +50,12 @@ const Sidebar = () => {
                 Add
               </Link>
               <Link
-                href="/ask-question"
+                href="/quiz"
                 className={`${
-                  pathname === "/ask-question" ? "text-pink-500" : "text-white"
+                  pathname === "/quiz" ? "text-pink-500" : "text-white"
                 } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
               >
-                Ask Questions
+                Quiz
               </Link>
               <Link
                 href="/todo-list"
@@ -135,15 +135,15 @@ const Sidebar = () => {
               Send sweet Notes
             </Link>
             <Link
-              href="/ask-question"
+              href="/quiz"
               className={`${
-                pathname === "/ask-question"
+                pathname === "/quiz"
                   ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
                   : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              Ask Questions
+              Quiz
             </Link>
             <Link
               href="/todo-list"
