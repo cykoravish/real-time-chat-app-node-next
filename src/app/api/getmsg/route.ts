@@ -6,11 +6,11 @@ export async function POST(req: NextRequest) {
   await connect(); // Ensure the database is connected
 
   try {
-    const { searchParams }: any = new URL(req.url); // Get query parameters from the URL
-    const limit:any = searchParams.get("limit")
-      ? parseInt(searchParams.get("limit"), 10)
-      : undefined; // No default value, undefined if not set
-
+    const searchParams = new URL(req.url).searchParams; // Get query parameters from the URL
+    const limit = Math.min(
+      parseInt(searchParams.get("limit") || "10", 10), // Default to 10 if not provided
+      100 // Cap the limit to 100 to avoid overloading the server
+    );
     const messages = await MessageModel.find()
       .sort({ createdAt: -1 })
       .limit(limit); // Fetch and sort by date (latest first)

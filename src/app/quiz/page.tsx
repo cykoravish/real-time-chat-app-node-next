@@ -140,7 +140,9 @@ const Page = () => {
       <p className="text-purple text-center text-3xl pt-14 font-mono">
         welcome <span className="font-semibold text-blue-500">{userName}</span>
       </p>
-    <p className="text-xs font-bold pt-4 text-blue-500 text-wrap">Baby test your learnings with these MCQ&apos;s</p>
+      <p className="text-xs font-bold pt-4 text-blue-500 text-wrap">
+        Baby test your learnings with these MCQ&apos;s
+      </p>
       <div className="pt-10">
         {questionsData.map((question: any) => (
           <div key={question.id} className="mb-8">
@@ -174,20 +176,17 @@ const Page = () => {
           </div>
         ))}
         <button
-          onClick={handleSubmit}
-          className={`text-center mt-5 mb-10 px-4 py-2 bg-blue-500 text-white rounded ${
-            loadingTwo && "bg-gray-400 cursor-not-allowed"
-          }`}
           disabled={loadingTwo}
+          onClick={handleSubmit}
+          className={`relative inline-flex items-center justify-center p-0.5 mb-10 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 ${
+            loadingTwo
+              ? "opacity-50 cursor-not-allowed bg-gray-400"
+              : "bg-white dark:bg-black text-black dark:text-pink-500"
+          }`}
         >
-          {loadingTwo ? (
-            <div className="flex items-center justify-center">
-              <LuLoader2 className="animate-spin text-white mr-2" size={24} />
-              <span>Loading...</span>
-            </div>
-          ) : (
-            "Submit Quiz"
-          )}
+          <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+            {loadingTwo ? "loading..." : "Submit"}
+          </span>
         </button>
       </div>
     </div>

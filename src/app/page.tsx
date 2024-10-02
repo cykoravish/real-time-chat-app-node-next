@@ -30,7 +30,7 @@ export default function SignupFormDemo() {
         window.location.reload();
       }
 
-      router.push("/show-notes");
+      router.push("/quiz");
       setPassword("");
       showToast("❤️successfully Logged In❤️", "success");
     } else {

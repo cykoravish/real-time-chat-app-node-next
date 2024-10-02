@@ -94,10 +94,10 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ searchParams }) => {
           ))}
         </div>
         <Link
-          href="/"
+          href="/quiz"
           className="text-center flex justify-center mt-10"
         >
-          <button className="border border-blue-500 p-2 rounded-md font-semibold hover:bg-blue-500 hover:text-white">GO TO Home</button>
+          <button className="border border-blue-500 p-2 rounded-md font-semibold hover:bg-blue-500 hover:text-white">Try Again</button>
         </Link>
       </div>
     </div>

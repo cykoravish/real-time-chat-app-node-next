@@ -6,10 +6,12 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaPause, FaPlay } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 export const HoverEffect = ({
   items,
   markedAsRead,
+  deleteMessage,
   className,
 }: {
   items: {
@@ -22,6 +24,7 @@ export const HoverEffect = ({
     audio_url?: any;
   }[];
   markedAsRead: (id: any) => void;
+  deleteMessage: (id: any) => void;
   className?: string;
 }) => {
   let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -211,6 +214,13 @@ export const HoverEffect = ({
             </CardTitle>
             <span className="text-gray-400 absolute right-0 top-0 text-sm">
               {formatDate(item.createdAt)}
+            </span>
+            <span className="text-gray-400 absolute left-0 top-0 text-sm">
+              <MdDelete
+                size={25}
+                className="text-red-500 hover:text-red-700"
+                onClick={() => deleteMessage(item._id)}
+              />
             </span>
 
             {item.username === username && item.markedAsRead && (

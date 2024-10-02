@@ -84,14 +84,14 @@ const Sidebar = () => {
 
         {/* Sidebar */}
         <div
-          className={`fixed inset-x-0 top-0 bg-pink-500 transform transition-transform duration-300 ease-in-out ${
+          className={`fixed inset-x-0 top-0 bg-blue-500 transform transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-y-0" : "-translate-y-full"
           } z-50`}
         >
           <div className="flex flex-col h-full px-4 pt-5 pb-3 space-y-4 text-center">
             <div className="flex justify-between items-center">
               <Link href="/" className="text-white text-lg font-bold">
-                𝕯𝖊𝖊𝖕𝖚
+                𝕯𝖊𝖊𝖕𝖚              
               </Link>
               <button
                 className="text-white"
@@ -101,6 +101,28 @@ const Sidebar = () => {
                 <IoClose size={25} />
               </button>
             </div>
+            <Link
+              href="/quiz"
+              className={`${
+                pathname === "/quiz"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              Quiz
+            </Link>
+            <Link
+              href="/todo-list"
+              className={`${
+                pathname === "/todo-list"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              TodoList
+            </Link>
             <Link
               href="/show-notes"
               className={`${
@@ -132,30 +154,9 @@ const Sidebar = () => {
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              Send sweet Notes
+              Add sweet Notes
             </Link>
-            <Link
-              href="/quiz"
-              className={`${
-                pathname === "/quiz"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              Quiz
-            </Link>
-            <Link
-              href="/todo-list"
-              className={`${
-                pathname === "/todo-list"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              TodoList
-            </Link>
+        
             <div className="">
               <LogoutButton />
             </div>
