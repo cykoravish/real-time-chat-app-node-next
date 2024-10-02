@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { IoIosCloseCircle } from "react-icons/io";
 import { FaPause, FaPlay } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Link from "next/link";
 
 export const HoverEffect = ({
   items,
@@ -166,6 +167,24 @@ export const HoverEffect = ({
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
   }, [isModalOpen]);
+
+  if (items.length === 0) {
+    return (
+      <div className="pt-24 text-center">
+        <h1 className="text-gray-400 text-4xl font-semibold tracking-wide">
+          No notes to show
+        </h1>
+        <p className="text-gray-500 text-lg mt-4">
+          no sweet notes to show baby. you can add if you want
+        </p>
+        <Link href="/add-notes">
+          <button className="mt-8 px-6 py-3 bg-blue-500 text-white shadow-lg hover:bg-blue-600 transition duration-300 ease-in-out rounded-full">
+            Add sweet Note
+          </button>
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div

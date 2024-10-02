@@ -93,11 +93,14 @@ const ResultsPage: React.FC<ResultsPageProps> = ({ searchParams }) => {
             </div>
           ))}
         </div>
-        <Link
-          href="/quiz"
-          className="text-center flex justify-center mt-10"
-        >
-          <button className="border border-blue-500 p-2 rounded-md font-semibold hover:bg-blue-500 hover:text-white">Try Again</button>
+        <Link href="/quiz" className="text-center flex justify-center mt-10">
+          <button
+            className={`relative inline-flex items-center justify-center p-0.5 mb-10 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 `}
+          >
+            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+              Try Again
+            </span>
+          </button>
         </Link>
       </div>
     </div>

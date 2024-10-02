@@ -91,7 +91,7 @@ const Sidebar = () => {
           <div className="flex flex-col h-full px-4 pt-5 pb-3 space-y-4 text-center">
             <div className="flex justify-between items-center">
               <Link href="/" className="text-white text-lg font-bold">
-                𝕯𝖊𝖊𝖕𝖚              
+                𝕯𝖊𝖊𝖕𝖚
               </Link>
               <button
                 className="text-white"
@@ -132,18 +132,7 @@ const Sidebar = () => {
               } font-mono font-bold`}
               onClick={toggleNavbar}
             >
-              Notes
-            </Link>
-            <Link
-              href="/chats"
-              className={`${
-                pathname === "/chats"
-                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              Chats
+              Sweet Notes
             </Link>
             <Link
               href="/add-notes"
@@ -156,7 +145,17 @@ const Sidebar = () => {
             >
               Add sweet Notes
             </Link>
-        
+            <Link
+              href="/chats"
+              className={`${
+                pathname === "/chats"
+                  ? "text-pink-700 bg-white rounded-lg p-2 transition duration-200"
+                  : "text-white hover:bg-pink-700 rounded-lg p-2 transition duration-200"
+              } font-mono font-bold`}
+              onClick={toggleNavbar}
+            >
+              Chats
+            </Link>
             <div className="">
               <LogoutButton />
             </div>

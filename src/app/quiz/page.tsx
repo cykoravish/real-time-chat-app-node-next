@@ -128,14 +128,14 @@ const Page = () => {
     }
   };
 
-  const handleTimerEnd = () => {
-    // console.log("Timer has ended. Perform actions here.");
-    handleSubmit();
-  };
+  // const handleTimerEnd = () => {
+  //   // console.log("Timer has ended. Perform actions here.");
+  //   handleSubmit();
+  // };
 
   return (
-    <div className="min-h-screen bg-black-100 md:px-8 px-4">
-      <ShiftingCountdown onEnd={handleTimerEnd} />
+    <div className="min-h-screen bg-black-100 md:px-8 px-4 pt-14">
+      {/* <ShiftingCountdown onEnd={handleTimerEnd} /> */}
 
       <p className="text-purple text-center text-3xl pt-14 font-mono">
         welcome <span className="font-semibold text-blue-500">{userName}</span>
@@ -175,19 +175,21 @@ const Page = () => {
             </div>
           </div>
         ))}
-        <button
-          disabled={loadingTwo}
-          onClick={handleSubmit}
-          className={`relative inline-flex items-center justify-center p-0.5 mb-10 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 ${
-            loadingTwo
-              ? "opacity-50 cursor-not-allowed bg-gray-400"
-              : "bg-white dark:bg-black text-black dark:text-pink-500"
-          }`}
-        >
-          <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
-            {loadingTwo ? "loading..." : "Submit"}
-          </span>
-        </button>
+        <div className="text-center">
+          <button
+            disabled={loadingTwo}
+            onClick={handleSubmit}
+            className={`relative inline-flex items-center justify-center p-0.5 mb-10 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-full group bg-gradient-to-br from-purple-500 to-pink-500 group-hover:from-purple-500 group-hover:to-pink-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 ${
+              loadingTwo
+                ? "opacity-50 cursor-not-allowed bg-gray-400"
+                : "bg-white dark:bg-black text-black dark:text-pink-500"
+            }`}
+          >
+            <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
+              {loadingTwo ? "loading..." : "Submit"}
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   );

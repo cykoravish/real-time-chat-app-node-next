@@ -91,8 +91,8 @@ export default function Todo() {
         <h1 className="text-5xl font-bold font-mono pb-4 text-blue-500">
           To-do List
         </h1>
-        <p className="text-sm pb-4 font-semibold text-blue-500">
-          Add you daily tasks here
+        <p className="text-xs pb-4 font-semibold text-blue-400">
+          Baby you can schedule your tasks here
         </p>
         <div className="flex justify-center items-center gap-2 pb-8">
           <input
