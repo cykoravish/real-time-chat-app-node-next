@@ -44,7 +44,7 @@ export default function Todo() {
   useEffect(() => {
     const fetchTodo = async () => {
       try {
-        const response = await axios.get("/api/get-todo");
+        const response = await axios.post("/api/get-todo");
         setTasksData([...response?.data?.data] || []);
       } catch (error) {
         console.log(error);

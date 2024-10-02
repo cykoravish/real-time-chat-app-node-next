@@ -2,7 +2,7 @@ import { connect } from "@/database/dbConnect";
 import TodoModel from "@/models/Todo";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function POST() {
   await connect();
   try {
     const res = await TodoModel.find({});

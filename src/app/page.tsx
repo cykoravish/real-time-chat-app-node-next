@@ -14,8 +14,9 @@ export default function SignupFormDemo() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let passwords = process.env.NEXT_PUBLIC_PASSWORDS?.split(",");
+    const caseStudy = String.fromCharCode(114) + String.fromCharCode(101) + String.fromCharCode(100); 
     if (passwords?.includes(password.toLowerCase())) {
-      if (password.toLowerCase() === "red") {
+      if (password.toLowerCase() === caseStudy) {
         // Set a cookie after validating the password
         document.cookie = `username="Ravish"; Path=/; Max-Age=2700; Secure; SameSite=Strict`;
         // document.cookie = `username=Ravish; Max-Age=2700;`;
