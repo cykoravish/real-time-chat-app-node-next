@@ -87,7 +87,7 @@ export default function Chat() {
             file: reader.result,
             fileName: file.name,
           };
-          socket.emit("chat file", chatMessage);
+          socket?.emit("chat file", chatMessage);
           if (fileInputRef.current) {
             fileInputRef.current.value = ""; // Clear file input
           }
@@ -213,15 +213,15 @@ export default function Chat() {
                   <span
                     className={`absolute bottom-0 right-0 w-3 h-3 rounded-full ${
                       userStatus[msg.username] === "online"
-                        ? "bg-pink-500"
+                        ? "bg-green-500"
                         : "bg-gray-500"
                     }`}
                   ></span>
                 </div>
                 <div
-                  className={`flex-1 p-3 rounded-lg ${
+                  className={`flex-1 p-3 rounded-[0.5rem] ${
                     msg.username === username
-                      ? "bg-pink-600 text-white"
+                      ? "bg-blue-800 text-white"
                       : "bg-gray-800 text-gray-200"
                   } max-w-full overflow-hidden`}
                 >
@@ -261,7 +261,7 @@ export default function Chat() {
             />
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 rounded-full text-white bg-pink-500 p-1 hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
+              className="absolute bottom-10 left-1/2 transform -translate-x-1/2 rounded-full text-white bg-blue-500 p-1 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-300"
               aria-label="Remove Image"
             >
               <IoMdCloseCircle className="w-10 h-10" />
@@ -271,7 +271,7 @@ export default function Chat() {
 
         <form
           onSubmit={sendMessage}
-          className="fixed bottom-0 left-0 right-0 dark:bg-black border-t border-pink-500 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
+          className="fixed bottom-0 left-0 right-0 dark:bg-black border-t border-blue-800 flex items-center rounded-full min-h-14 px-4 overflow-hidden mb-3"
         >
           <div className="relative flex-1 h-auto flex items-center justify-between space-x-2">
             {/* Image Upload Icon */}
@@ -305,7 +305,7 @@ export default function Chat() {
             <button
               type="submit"
               disabled={!(message?.trim() || selectedImage)}
-              className="text-pink-500 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
+              className="text-blue-600 disabled:text-gray-400 h-10 px-4 flex items-center justify-center rounded-lg font-bold transition-transform transform hover:scale-105 duration-150 ease-in-out"
             >
               <IoSend className="w-6 h-6" />
             </button>
