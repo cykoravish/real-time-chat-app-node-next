@@ -4,17 +4,26 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { showToast } from "@/components/LoveToast";
-import ConfettiComponent from "@/components/ConfettiComponent";
 import { useRouter } from "next/navigation";
+import confetti from "canvas-confetti";
+
+const randomInRange = (min: number, max: number) => {
+  return Math.random() * (max - min) + min;
+};
 
 export default function SignupFormDemo() {
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
+  const [run, setRun] = useState(false);
+  const [fadeOut, setFadeOut] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let passwords = process.env.NEXT_PUBLIC_PASSWORDS?.split(",");
-    const caseStudy = String.fromCharCode(114) + String.fromCharCode(101) + String.fromCharCode(100); 
+    const caseStudy =
+      String.fromCharCode(114) +
+      String.fromCharCode(101) +
+      String.fromCharCode(100);
     if (passwords?.includes(password.toLowerCase())) {
       if (password.toLowerCase() === caseStudy) {
         // Set a cookie after validating the password
@@ -38,9 +47,22 @@ export default function SignupFormDemo() {
       showToast("galat password dal dia baby", "error");
     }
   };
+  const handleConfetti = () => {
+    confetti({
+      angle: randomInRange(55, 125),
+      spread: randomInRange(50, 70),
+      particleCount: randomInRange(50, 100),
+      origin: { y: 0.6 },
+      gravity: 0.2,
+      colors: ["#ff69b4", "#ffd700", "#8a2be2", "#00fa9a"],
+    });
+  };
+  useEffect(() => {
+    handleConfetti();
+  }, []);
   return (
     <>
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center flex-col gap-6">
         <div className="max-w-md w-full mx-2 rounded-xl md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-blue-500">
           <h2 className="font-bold text-xl text-neutral-800 dark:text-blue-500">
             Welcome to Sweet Notes
@@ -71,8 +93,13 @@ export default function SignupFormDemo() {
               <BottomGradient />
             </button>
           </form>
-          <ConfettiComponent />
         </div>
+
+        <h1 className="text-center">
+          <button onClick={handleConfetti} className="text-5xl animate-bounce">
+            ❤️
+          </button>
+        </h1>
       </div>
     </>
   );

@@ -101,7 +101,7 @@ export default function Notes() {
               }`}
             >
               <span className="relative px-5 py-2.5 transition-all ease-in duration-75 text-white dark:bg-gray-900 rounded-full group-hover:bg-opacity-0">
-                {loading ? "loading..." : "Submit"}
+                {loading ? "loading..." : "Send"}
               </span>
             </button>
             <Link href="/show-notes">

@@ -95,7 +95,7 @@ const AudioRecorder: React.FC<AudioRecorderProps> = ({
       );
       // console.log("Audio uploaded successfully:", response.data.secure_url);
       setAudioURL(response.data.secure_url);
-      showToast("Audio captured successfully!", "success");
+      showToast("voice record ho gyi ab send krr do", "success");
     } catch (error) {
       console.error("Upload Error:", error);
       showToast("Audio upload failed. Please try again.","error");
