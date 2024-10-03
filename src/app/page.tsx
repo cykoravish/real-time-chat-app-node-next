@@ -62,8 +62,8 @@ export default function SignupFormDemo() {
   }, []);
   return (
     <>
-      <div className="flex justify-center items-center flex-col gap-6">
-        <div className="max-w-md w-full mx-2 rounded-xl md:rounded-lg p-4 md:p-8 shadow-input mt-52 bg-white dark:bg-black border border-blue-500">
+      <div className="flex flex-col items-center justify-center">
+        <div className="max-w-md w-full mx-2 rounded-xl md:rounded-lg p-4 md:p-8 shadow-input mt-32 bg-white dark:bg-black border border-blue-500">
           <h2 className="font-bold text-xl text-neutral-800 dark:text-blue-500">
             Welcome to Sweet Notes
           </h2>
@@ -95,7 +95,7 @@ export default function SignupFormDemo() {
           </form>
         </div>
 
-        <h1 className="text-center">
+        <h1 className="text-center pt-6">
           <button onClick={handleConfetti} className="text-5xl animate-bounce">
             ❤️
           </button>
