@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get("username");
 
   if (isPublicPath && token) {
-    return NextResponse.redirect(new URL("/quiz", request.nextUrl));
+    return NextResponse.redirect(new URL("/show-notes", request.nextUrl));
   }
 
   if (!isPublicPath && !token) {
@@ -26,7 +26,6 @@ export const config = {
     "/chats",
     "/show-notes",
     "/todo-list",
-    "/quiz",
     "/results",
     "/study-notes"
   ],
