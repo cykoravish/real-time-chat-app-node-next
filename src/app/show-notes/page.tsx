@@ -16,12 +16,11 @@ interface Message {
 
 export default function CardHoverEffectDemo() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [page, setPage] = useState(10);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const res = await axios.post(`/api/getmsg?limit=${page}`);
+        const res = await axios.post("/api/getmsg");
         setMessages(res.data.data);
         setLoading(false);
       } catch (error) {
@@ -30,7 +29,7 @@ export default function CardHoverEffectDemo() {
     };
 
     fetchMessages();
-  }, [page]);
+  }, []);
 
   const seenMessages = async (_id: any) => {
     try {
@@ -51,24 +50,6 @@ export default function CardHoverEffectDemo() {
     }
   };
 
-  const handelInfiniteScroll = async () => {
-    try {
-      if (
-        window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight
-      ) {
-        setLoading(true);
-        setPage((prev) => prev + 10);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handelInfiniteScroll);
-    return () => window.removeEventListener("scroll", handelInfiniteScroll);
-  }, []);
 
   return (
     <>

@@ -49,30 +49,6 @@ const Sidebar = () => {
               >
                 Add
               </Link>
-              <Link
-                href="/quiz"
-                className={`${
-                  pathname === "/quiz" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
-              >
-                Quiz
-              </Link>
-              <Link
-                href="/todo-list"
-                className={`${
-                  pathname === "/todo-list" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
-              >
-                Todo List
-              </Link>
-              <Link
-                href="/study-notes"
-                className={`${
-                  pathname === "/study-notes" ? "text-pink-500" : "text-white"
-                } hover:text-pink-500 p-2 px-6 transition duration-200 font-bold font-mono text-xl`}
-              >
-                Study Notes
-              </Link>
 
               <div className="">
                 <LogoutButton />
@@ -109,39 +85,6 @@ const Sidebar = () => {
                 <IoClose size={25} />
               </button>
             </div>
-            <Link
-              href="/quiz"
-              className={`${
-                pathname === "/quiz"
-                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              Quiz
-            </Link>
-            <Link
-              href="/study-notes"
-              className={`${
-                pathname === "/study-notes"
-                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              Study Notes
-            </Link>
-            <Link
-              href="/todo-list"
-              className={`${
-                pathname === "/todo-list"
-                  ? "text-blue-700 bg-white rounded-lg p-2 transition duration-200"
-                  : "text-white hover:bg-blue-700 rounded-lg p-2 transition duration-200"
-              } font-mono font-bold`}
-              onClick={toggleNavbar}
-            >
-              TodoList
-            </Link>
             <Link
               href="/show-notes"
               className={`${
